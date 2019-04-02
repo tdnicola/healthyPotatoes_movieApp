@@ -55,11 +55,6 @@ app.get('/', function (req, res) {
   res.send('Welcome to some healthy potatos?');
 });
 
-// app.get('/documentation', function (req, res) {
-//   res.sendFile('public/documentation.html', { root: _dirname }
-// );
-// });
-
 app.get('/movies', function (req, res) {
   res.json(movies);
 });
