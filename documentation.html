@@ -6,5 +6,86 @@
   </head>
   <body>
     This is the documentation for the app healthy potatos
+    <br>
+    Endpoints:
+    <table>
+      <tr>
+        <th>Business logic</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Request Body Data Format</th>
+        <th>Response Body Data Format</th>
+      </tr>
+      <tr>
+        <th>Return a list of all movies to the user</th>
+        <th>/movies</th>
+        <th>GET</th>
+        <th>NONE</th>
+        <th>A JSON object holding data on all movies</th>
+      </tr>
+      <tr>
+        <th>Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
+        <th>/movies/[name]/[genre]</th>
+        <th>GET</th>
+        <th>NONE</th>
+        <th>Text of the genre based of the movie</th>
+      </tr>
+      <tr>
+        <th>Return data about a director (bio, birth year, death year) by name</th>
+        <th>/movies/[name]/[director]</th>
+        <th>GET</th>
+        <th>NONE</th>
+        <th>A JSON object holding information based off of the director of the movie</th>
+      </tr>
+      <tr>
+         <th>Allow new users to register</th>
+         <th>/users</th>
+         <th>POST</th>
+         <th>Json object holding data about the user to add structured like: <br>
+           { <br>
+           username: "guest" <br>
+           password: "password"<br>
+           email: "email"<br>
+           dob: "10/25/1980" <br>
+           }<br>
+          </th>
+          <th> Json object holding data about the user that was added: <br>
+            { <br>
+            username: "guest" <br>
+            password: "password"<br>
+            email: "email"<br>
+            dob: "10/25/1980" <br>
+            }<br>
+          </th>
+       </tr>
+       <tr>
+          <th>Allow users to update their user info (username, password, email, date of birth)</th>
+          <th>/users</th>
+          <th>PUT</th>
+          <th>none</th>
+          <th>Text message indicating the information was updated</th>
+        </tr>
+        <tr>
+          <th>Allow users to add a movie to their list of favorites</th>
+          <th>/users/[username]/movies</th>
+          <th>PUT</th>
+          <th>none</th>
+          <th>A text message indicating the movie was successfully added</th>
+        </tr>
+        <tr>
+          <th>Allow users to remove a movie from their list of favorites</th>
+          <th>/users/[username]/movies/[title]</th>
+          <th>DELETE</th>
+          <th>none</th>
+          <th>A text message indicating the movie was successfully removed</th>
+        </tr>
+        <tr>
+          <th>Allow existing users to deregister</th>
+          <th>/users/[username]</th>
+          <th>DELETE</th>
+          <th>None</th>
+          <th>A text message indicating the user was successfully removed</th>
+        </tr>
+    </table>
   </body>
 </html>
