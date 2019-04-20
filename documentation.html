@@ -25,7 +25,7 @@
       </tr>
       <tr>
         <th>Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
-        <th>/movies/[name]/[genre]</th>
+        <th>/movies/[name]/genre</th>
         <th>GET</th>
         <th>NONE</th>
         <th>Text of the genre based of the movie</th>
@@ -67,14 +67,14 @@
         </tr>
         <tr>
           <th>Allow users to add a movie to their list of favorites</th>
-          <th>/users/[username]/movies</th>
+          <th>/users/[username]/[movies]</th>
           <th>PUT</th>
           <th>none</th>
           <th>A text message indicating the movie was successfully added</th>
         </tr>
         <tr>
           <th>Allow users to remove a movie from their list of favorites</th>
-          <th>/users/[username]/movies/[title]</th>
+          <th>/users/[username]/[movies]</th>
           <th>DELETE</th>
           <th>none</th>
           <th>A text message indicating the movie was successfully removed</th>

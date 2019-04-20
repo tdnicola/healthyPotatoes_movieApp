@@ -59,6 +59,34 @@ app.get('/movies', function (req, res) {
   res.json(movies);
 });
 
+app.get('/movies/:name/genre', function (req, res) {
+  res.send('Successful Get request for movie genre');
+});
+
+app.get('/movies/:name/:director', function (req, res) {
+  res.send('Successful Get request for movie director');
+});
+
+app.post('/users', function (req, res) {
+  res.send('Successful post request for new user');
+});
+
+app.delete('/users/:username', function (req, res) {
+  res.send('Successful post request for new user');
+});
+
+app.put('/users', function (req, res) {
+  res.send('Successful put request to update user');
+});
+
+app.put('/users/:username/:movies', function (req, res) {
+  res.send('Successful put request to update their movies');
+});
+
+app.delete('/users/:username/:movies', function (req, res) {
+  res.send('Successful deletion of a movie');
+});
+
 //static public folders
 app.use(express.static('public'));
 
