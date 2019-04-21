@@ -1,7 +1,7 @@
 const express = require('express'),
   morgan = require('morgan'),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+  bodyParser = require('body-parser'),
+  uuid = require('uuid');
 
 const app = express();
 
@@ -9,8 +9,11 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+//static public folders
+app.use(express.static('public'));
+
 // top movies
-let movies = [{
+let Movies = [{
   movie: 'Harry Potter and the Deathly Hallows Part 2',
   genre: 'Adventure',
   director: 'David Yates',
@@ -76,20 +79,39 @@ let movies = [{
 {
   movie: 'Shaun of the dead',
   genre: 'Comedy',
-  director: '',
+  director: 'Edgar Wright',
   description: 'A man\'s uneventful life is disrupted by the zombie apocalypse',
   image: 'https://m.media-amazon.com/images/M/MV5BMTg5Mjk2NDMtZTk0Ny00YTQ0LWIzYWEtMWI5MGQ0Mjg1OTNkXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,669,1000_AL_.jpg',
 },
 ];
+
+// users of the app info
+let users = [{
+  id: '',
+  name: '',
+  email: '',
+  dob: '',
+  favorites: [
+    'test',
+  ],
+}];
 
 // GET responses
 app.get('/', function (req, res) {
   res.send('Welcome to some healthy potatos?');
 });
 
+//Gets info on the list of all movies
 app.get('/movies', function (req, res) {
-  res.json(movies);
+  res.json(Movies);
 });
+
+//Gets info of a single movie by name, ** currently not working correctly
+app.get('/movies/:name', (req, res) => {
+  res.json(Movies.find((movie) =>
+{ return movie.name === req.params.name}))
+});
+
 
 app.get('/movies/:name/genre', function (req, res) {
   res.send('Successful Get request for movie genre');
