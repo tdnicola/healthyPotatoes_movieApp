@@ -1,54 +1,86 @@
-const express = require('express');
-  morgan = require('morgan');
+const express = require('express'),
+  morgan = require('morgan'),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
+
 const app = express();
 
+// logging info-morgan and bodyParser
+app.use(morgan('common'));
+app.use(bodyParser.json());
 
 // top movies
-
 let movies = [{
-  movie: 'Harry Potter',
+  movie: 'Harry Potter and the Deathly Hallows Part 2',
   genre: 'Adventure',
+  director: 'David Yates',
+  description: 'Harry, Ron, and Hermione search for Voldemort\'s remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.',
+  image: 'https://m.media-amazon.com/images/M/MV5BMjIyZGU4YzUtNDkzYi00ZDRhLTljYzctYTMxMDQ4M2E0Y2YxXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX667_CR0,0,667,999_AL_.jpg',
 },
 {
   movie: 'The Thing',
   genre: 'Horror',
+  director: 'John Carpenter',
+  description: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
+  image: 'https://m.media-amazon.com/images/M/MV5BNDcyZmFjY2YtN2I1OC00MzU3LWIzZGEtZDA5N2VlNDJjYWI3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY1000_CR0,0,660,1000_AL_.jpg',
 },
 {
   movie: 'Back to the Future',
   genre: 'Adventure',
+  director: 'Robert Zemeckis',
+  description: 'Marty McFly, a 17-year-old high school student, is accidentally sent thirty years into the past in a time-traveling DeLorean invented by his close friend, the maverick scientist Doc Brown.',
+  image: 'https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg',
 },
 {
   movie: 'Interstellar',
   genre: 'Sci-Fi',
+  director: 'Christopher Nolan',
+  description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
+  image: 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SY1000_SX675_AL_.jpg',
 },
 {
   movie: 'Tommy Boy',
   genre: 'Comedy',
+  director: 'Peter Segal',
+  description: 'After his auto-parts tycoon father dies, the overweight, underachieving son teams up with a snide accountant to try and save the family business.',
+  image: 'https://m.media-amazon.com/images/M/MV5BNTMwZGU3MGUtZWE0Ni00YzExLWIyY2MtMmNmMDlmYTdmNzFkXkEyXkFqcGdeQXVyNjExODE1MDc@._V1_.jpg',
 },
 {
   movie: 'The Big Lebowski',
   genre: 'Comedy',
+  director: 'Joel Coen, Ethan Coen',
+  description: 'Jeff "The Dude" Lebowski, mistaken for a millionaire of the same name, seeks restitution for his ruined rug and enlists his bowling buddies to help get it.',
+  image: 'https://m.media-amazon.com/images/M/MV5BMTQ0NjUzMDMyOF5BMl5BanBnXkFtZTgwODA1OTU0MDE@._V1_SY1000_CR0,0,670,1000_AL_.jpg',
 },
 {
   movie: '2001 a Space Odyssey',
   genre: 'Sci-Fi',
+  director: 'Stanley Kubrick',
+  description: 'After discovering a mysterious artifact buried beneath the lunar surface, mankind sets off on a quest to find its origins with help from intelligent supercomputer HAL 9000.',
+  image: 'https://m.media-amazon.com/images/M/MV5BMmNlYzRiNDctZWNhMi00MzI4LThkZTctMTUzMmZkMmFmNThmXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,675,1000_AL_.jpg',
 },
 {
   movie: 'Annihilation',
   genre: 'Thriller',
+  director: 'Alex Garland',
+  description: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature don\'t apply.',
+  image: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxNl5BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_SY1000_CR0,0,640,1000_AL_.jpg',
 },
 {
   movie: 'Donnie Darko',
   genre: 'Fantasy',
+  director: 'Richard Kelly',
+  description: 'A troubled teenager is plagued by visions of a man in a large rabbit suit who manipulates him to commit a series of crimes, after he narrowly escapes a bizarre accident.',
+  image: 'https://m.media-amazon.com/images/M/MV5BZjZlZDlkYTktMmU1My00ZDBiLWFlNjEtYTBhNjVhOTM4ZjJjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
 },
 {
   movie: 'Shaun of the dead',
   genre: 'Comedy',
+  director: '',
+  description: 'A man\'s uneventful life is disrupted by the zombie apocalypse',
+  image: 'https://m.media-amazon.com/images/M/MV5BMTg5Mjk2NDMtZTk0Ny00YTQ0LWIzYWEtMWI5MGQ0Mjg1OTNkXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,669,1000_AL_.jpg',
 },
 ];
-
-// logging info-morgan
-app.use(morgan('common'));
 
 // GET responses
 app.get('/', function (req, res) {
