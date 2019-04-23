@@ -87,10 +87,10 @@ let Movies = [{
 
 // users of the app info
 let users = [{
-  id: '',
-  name: '',
-  email: '',
-  dob: '',
+  id: '1',
+  name: 'Tone Loc',
+  email: 'toneloc@gmail.com',
+  dob: '01/01/01',
   favorites: [
     'test',
   ],
@@ -106,18 +106,18 @@ app.get('/movies', function (req, res) {
   res.json(Movies);
 });
 
-//Gets info of a single movie by name, ** currently not working correctly
-app.get('/movies/:name', (req, res) => {
+//Gets info of a single movie by name
+app.get('/movies/:movie', (req, res) => {
   res.json(Movies.find((movie) =>
-{ return movie.name === req.params.name}))
+{ return movie.movie === req.params.movie}))
 });
 
 
-app.get('/movies/:name/genre', function (req, res) {
+app.get('/movies/:movie/genre', function (req, res) {
   res.send('Successful Get request for movie genre');
 });
 
-app.get('/movies/:name/:director', function (req, res) {
+app.get('/movies/:movie/:director', function (req, res) {
   res.send('Successful Get request for movie director');
 });
 
@@ -129,7 +129,7 @@ app.delete('/users/:username', function (req, res) {
   res.send('Successful post request for new user');
 });
 
-app.put('/users', function (req, res) {
+app.put('/users/:username', function (req, res) {
   res.send('Successful put request to update user');
 });
 
