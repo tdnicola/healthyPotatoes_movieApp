@@ -112,21 +112,35 @@ app.get('/movies/:movie', (req, res) => {
 { return movie.movie === req.params.movie}))
 });
 
-
+// find a movie genre
 app.get('/movies/:movie/genre', function (req, res) {
-  res.send('Successful Get request for movie genre');
+  res.send('Successful Get request for genre');
+
+  // working on genre find for movie
+//   let getGenre = Movies.find((movie) => { return movie.genre === req.params.genre });
+
 });
+
 
 app.get('/movies/:movie/:director', function (req, res) {
   res.send('Successful Get request for movie director');
 });
 
 app.post('/users', function (req, res) {
-  res.send('Successful post request for new user');
+  let newUser = req.body;
+
+  if (!newUser.name) {
+    const message = 'Missing "name" request in body'
+    res.status(400).send(message);
+  } else {
+    newUser.id =  uuid.v4();
+    users.push(newUser);
+    res.status(201).send(newUser);
+  }
 });
 
 app.delete('/users/:username', function (req, res) {
-  res.send('Successful post request for new user');
+  res.send('Successful delete request for new user');
 });
 
 app.put('/users/:username', function (req, res) {
