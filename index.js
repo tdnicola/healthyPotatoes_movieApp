@@ -117,7 +117,12 @@ app.get('/movies/:movie/genre', function (req, res) {
   res.send('Successful Get request for genre');
 
   // working on genre find for movie
-//   let getGenre = Movies.find((movie) => { return movie.genre === req.params.genre });
+//   let getGenre = Movies.find((genre) => { return movie.genre === req.params.genre });
+  //  if (!genre) {
+//      res.status(400).send('Genre not found')
+//   } else {
+//  return getGenre
+//   }
 
 });
 
