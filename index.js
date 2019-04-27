@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // top movies
-let Movies = [{
+const mainMovies = [{
   movie: 'Harry Potter and the Deathly Hallows Part 2',
   genre: 'Adventure',
   director: 'David Yates',
@@ -103,31 +103,34 @@ app.get('/', function (req, res) {
 
 //Gets info on the list of all movies
 app.get('/movies', function (req, res) {
-  res.json(Movies);
+  res.json(mainMovies);
 });
 
 //Gets info of a single movie by name
 app.get('/movies/:movie', (req, res) => {
-  res.json(Movies.find((movie) =>
+  res.json(mainMovies.find((movie) =>
 { return movie.movie === req.params.movie}))
 });
 
-// find a movie genre
-app.get('/movies/:movie/genre', function (req, res) {
-  res.send('Successful Get request for genre');
-
-  // working on genre find for movie
-//   let getGenre = Movies.find((genre) => { return movie.genre === req.params.genre });
-  //  if (!genre) {
-//      res.status(400).send('Genre not found')
-//   } else {
-//  return getGenre
-//   }
-
+// find a movies genre *not working returns harry potter- 1st object
+app.get('/movies/:movie/genre', (req, res) => {
+  res.json(mainMovies.find((movie) => {
+    if (movie) {
+      res.status(201).send('The genre of ' + movie.movie + 'is ' + movie.genre);
+    } else {
+      res.status(404).send('No title found');
+    }
+  }));
 });
 
+// Testing genre finding
+// app.get('/movies/:title/genre', (req, res) => {
+//   res.json(mainMovies.filter((movie) => {
+//     return movie.genre === req.params.title;
+//   }));
+// });
 
-app.get('/movies/:movie/:director', function (req, res) {
+app.get('/movies/:movie/director', (req, res) => {
   res.send('Successful Get request for movie director');
 });
 
