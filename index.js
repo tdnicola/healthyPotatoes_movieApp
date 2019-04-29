@@ -14,70 +14,70 @@ app.use(express.static('public'));
 
 // top movies
 const mainMovies = [{
-  movie: 'Harry Potter and the Deathly Hallows Part 2',
+  title: 'Harry Potter and the Deathly Hallows Part 2',
   genre: 'Adventure',
   director: 'David Yates',
   description: 'Harry, Ron, and Hermione search for Voldemort\'s remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.',
   image: 'https://m.media-amazon.com/images/M/MV5BMjIyZGU4YzUtNDkzYi00ZDRhLTljYzctYTMxMDQ4M2E0Y2YxXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX667_CR0,0,667,999_AL_.jpg',
 },
 {
-  movie: 'The Thing',
+  title: 'The Thing',
   genre: 'Horror',
   director: 'John Carpenter',
   description: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
   image: 'https://m.media-amazon.com/images/M/MV5BNDcyZmFjY2YtN2I1OC00MzU3LWIzZGEtZDA5N2VlNDJjYWI3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SY1000_CR0,0,660,1000_AL_.jpg',
 },
 {
-  movie: 'Back to the Future',
+  title: 'Back to the Future',
   genre: 'Adventure',
   director: 'Robert Zemeckis',
   description: 'Marty McFly, a 17-year-old high school student, is accidentally sent thirty years into the past in a time-traveling DeLorean invented by his close friend, the maverick scientist Doc Brown.',
   image: 'https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SY1000_CR0,0,643,1000_AL_.jpg',
 },
 {
-  movie: 'Interstellar',
+  title: 'Interstellar',
   genre: 'Sci-Fi',
   director: 'Christopher Nolan',
   description: 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.',
   image: 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SY1000_SX675_AL_.jpg',
 },
 {
-  movie: 'Tommy Boy',
+  title: 'Tommy Boy',
   genre: 'Comedy',
   director: 'Peter Segal',
   description: 'After his auto-parts tycoon father dies, the overweight, underachieving son teams up with a snide accountant to try and save the family business.',
   image: 'https://m.media-amazon.com/images/M/MV5BNTMwZGU3MGUtZWE0Ni00YzExLWIyY2MtMmNmMDlmYTdmNzFkXkEyXkFqcGdeQXVyNjExODE1MDc@._V1_.jpg',
 },
 {
-  movie: 'The Big Lebowski',
+  title: 'The Big Lebowski',
   genre: 'Comedy',
   director: 'Joel Coen, Ethan Coen',
   description: 'Jeff "The Dude" Lebowski, mistaken for a millionaire of the same name, seeks restitution for his ruined rug and enlists his bowling buddies to help get it.',
   image: 'https://m.media-amazon.com/images/M/MV5BMTQ0NjUzMDMyOF5BMl5BanBnXkFtZTgwODA1OTU0MDE@._V1_SY1000_CR0,0,670,1000_AL_.jpg',
 },
 {
-  movie: '2001 a Space Odyssey',
+  title: '2001 a Space Odyssey',
   genre: 'Sci-Fi',
   director: 'Stanley Kubrick',
   description: 'After discovering a mysterious artifact buried beneath the lunar surface, mankind sets off on a quest to find its origins with help from intelligent supercomputer HAL 9000.',
   image: 'https://m.media-amazon.com/images/M/MV5BMmNlYzRiNDctZWNhMi00MzI4LThkZTctMTUzMmZkMmFmNThmXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SY1000_CR0,0,675,1000_AL_.jpg',
 },
 {
-  movie: 'Annihilation',
+  title: 'Annihilation',
   genre: 'Thriller',
   director: 'Alex Garland',
   description: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature don\'t apply.',
   image: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxNl5BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_SY1000_CR0,0,640,1000_AL_.jpg',
 },
 {
-  movie: 'Donnie Darko',
+  title: 'Donnie Darko',
   genre: 'Fantasy',
   director: 'Richard Kelly',
   description: 'A troubled teenager is plagued by visions of a man in a large rabbit suit who manipulates him to commit a series of crimes, after he narrowly escapes a bizarre accident.',
   image: 'https://m.media-amazon.com/images/M/MV5BZjZlZDlkYTktMmU1My00ZDBiLWFlNjEtYTBhNjVhOTM4ZjJjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
 },
 {
-  movie: 'Shaun of the dead',
+  title: 'Shaun of the dead',
   genre: 'Comedy',
   director: 'Edgar Wright',
   description: 'A man\'s uneventful life is disrupted by the zombie apocalypse',
@@ -89,14 +89,26 @@ const mainMovies = [{
 let users = [{
   id: '1',
   name: 'Tone Loc',
+  username: 'thedopeness',
   email: 'toneloc@gmail.com',
   dob: '01/01/01',
   favorites: [
-    'test',
-  ],
-}];
+    'friday',
+    ],
+  },
+  {
+    id: '2',
+    name: 'Charlie Kelly',
+    username: 'ratking',
+    email: 'paddyspub@gmail.com',
+    dob: '01/01/01',
+    favorites: [
+      'lion king',
+    ],
+  },
+];
 
-// GET responses
+// GET MOVIE RESPONSES
 app.get('/', function (req, res) {
   res.send('Welcome to some healthy potatos?');
 });
@@ -109,31 +121,34 @@ app.get('/movies', function (req, res) {
 //Gets info of a single movie by name
 app.get('/movies/:movie', (req, res) => {
   res.json(mainMovies.find((movie) =>
-{ return movie.movie === req.params.movie}))
+{ return movie.title === req.params.movie}))
 });
 
-// find a movies genre *not working returns harry potter- 1st object
-app.get('/movies/:movie/genre', (req, res) => {
-  res.json(mainMovies.find((movie) => {
-    if (movie) {
-      res.status(201).send('The genre of ' + movie.movie + 'is ' + movie.genre);
+// find a movies genre
+app.get('/movies/:title/genre', (req, res) => {
+  const findGenre = mainMovies.find((movie) => {
+    return movie.title === req.params.title
+   });
+    if (findGenre) {
+      res.status(201).send('The genre of ' + findGenre.title + ' is ' + findGenre.genre);
     } else {
       res.status(404).send('No title found');
     }
-  }));
-});
+  });
 
-// Testing genre finding
-// app.get('/movies/:title/genre', (req, res) => {
-//   res.json(mainMovies.filter((movie) => {
-//     return movie.genre === req.params.title;
-//   }));
-// });
+// find director
+app.get('/movies/:title/director', (req, res) => {
+  const findDirector = mainMovies.find((movie) => {
+    return movie.title === req.params.title
+   });
+    if (findDirector) {
+      res.status(201).send('The director of ' + findDirector.title + ' is ' + findDirector.director);
+    } else {
+      res.status(404).send('No title found');
+    }
+  });
 
-app.get('/movies/:movie/director', (req, res) => {
-  res.send('Successful Get request for movie director');
-});
-
+// USER INFORMATION
 app.post('/users', function (req, res) {
   let newUser = req.body;
 
@@ -147,19 +162,41 @@ app.post('/users', function (req, res) {
   }
 });
 
+// delete USER by ID
 app.delete('/users/:username', function (req, res) {
-  res.send('Successful delete request for new user');
+  const user = users.find((user) => { return user.username === req.params.username });
+
+  if (user) {
+    users.filter(function (obj) { return obj.username !== req.params.username });
+    res.status(201).send('User ID ' + user.username + ' was deleted.');
+  }
 });
 
-app.put('/users/:username', function (req, res) {
-  res.send('Successful put request to update user');
+//update user by id
+app.put('/users/:username/:email/:dob/:name', function (req, res) {
+  let user = users.find((user) => { return user.username === req.params.username });
+
+  if (user) {
+    user.email = req.params.email;
+    user.dob = req.params.dob;
+    user.name = req.params.name;
+    res.status(201).send('User ' + user.username + ' updated user information to email: ' + user.email + ' dob: ' + user.dob + ' name: ' + user.name);
+  } else {
+    res.status(404).send('User ' + user.username + 'not found')
+  }
 });
 
-app.put('/users/:username/:movies', function (req, res) {
+//update favorite movies
+app.put('/users/:username/favorites', function (req, res) {
+  let userFavorites = req.body;
+
+  if (!userFavorites.username)
   res.send('Successful put request to update their movies');
 });
 
+//delete favorite movie
 app.delete('/users/:username/:movies', function (req, res) {
+  let user = users.find((user) => {return user.username === req.params.username});
   res.send('Successful deletion of a movie');
 });
 
