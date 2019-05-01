@@ -102,9 +102,7 @@ let users = [{
     username: 'ratking',
     email: 'paddyspub@gmail.com',
     dob: '01/01/01',
-    favorites: [
-      'lion king',
-    ],
+    favorites: [],
   },
 ];
 
@@ -119,7 +117,7 @@ app.get('/movies', function (req, res) {
 });
 
 //Gets info of a single movie by name
-app.get('/movies/:movie', (req, res) => {
+app.get('/movies/:title', (req, res) => {
   res.json(mainMovies.find((movie) =>
 { return movie.title === req.params.movie}))
 });
@@ -190,14 +188,31 @@ app.put('/users/:username/:email/:dob/:name', function (req, res) {
 app.put('/users/:username/favorites', function (req, res) {
   let userFavorites = req.body;
 
-  if (!userFavorites.username)
-  res.send('Successful put request to update their movies');
+  if (!userFavorites) {
+    const message = 'Missing username in request body';
+    res.status(400).send(message);
+  } else {
+    const userFav = users.find((userFav) => { return userFav.username === req.params.username });
+    userFav.favorites.push(userFavorites.favorites);
+    res.status(201).send('updated favorites');
+  }
 });
 
 //delete favorite movie
-app.delete('/users/:username/:movies', function (req, res) {
-  let user = users.find((user) => {return user.username === req.params.username});
-  res.send('Successful deletion of a movie');
+app.delete('/users/:username/favorites', function (req, res) {
+  res.status(201).send('successful update of movies');
+// still working on updating favorite movies
+  // let deleteFavorites = req.body;
+  //
+  // if (!deleteFavorites) {
+  //   const message = "Missing movie in required field";
+  //   res.status(400).send(message);
+  // } else {
+  //   const userDel = users.find((userDel) => {return userDel.name = req.params.name});
+  //   const deleteMovie = userDel.favorites.filter(obj => {return obj !== deleteFavorites.movie;});
+  //   userDel.favorites = deleteMovie;
+  //   res.status(201).send(deleteMovie);
+  // }
 });
 
 //static public folders
