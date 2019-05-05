@@ -207,10 +207,15 @@ app.get('/movies/:title/director', (req, res) => {
     }
   });
 
-// director information
-app.get('/director', (req, res) => {
+// director information *all users
+app.get('/directors', (req, res) => {
   res.json(directorInfo);
 });
+
+//Find a directors information *single
+app.get('/directors/:director', (req, res) => {
+  res.json(directorInfo.find((director) => { return director.name === req.params.director}));
+})
 
 // USER INFORMATION
 app.post('/users', function (req, res) {
