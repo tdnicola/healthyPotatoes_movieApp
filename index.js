@@ -1,9 +1,17 @@
 const express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
-  uuid = require('uuid');
+  uuid = require('uuid'),
+  mongoose = require ('mongoose'),
+  Models = require('./model.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/potatoes', {useNewUrlParser: true});
 
 const app = express();
+
 
 // logging info-morgan and bodyParser
 app.use(morgan('common'));
@@ -218,21 +226,58 @@ app.get('/directors/:director', (req, res) => {
 })
 
 // USER INFORMATION
-app.post('/users', function (req, res) {
-  let newUser = req.body;
 
-  if (!newUser.name) {
-    const message = 'Missing "name" request in body'
-    res.status(400).send(message);
-  } else {
-    newUser.id =  uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
+//create user
+app.post('/users', (req, res) => {
+  Users.findOne({ Username : req.body.Username })
+  .then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.Username + 'already exists');
+    }
+      Users.create({
+        Userne: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      })
+      .then((user) => { res.status(201).json(user); })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error ' + error );
+      })
+
+  }).catch((error) => {
+    console.error(error);
+    res.status(505).send('Error ' + error);
+  });
+});
+
+//get all users
+app.get('/users', (req, res) => {
+  Users.find()
+  .then((users) => {
+    res.status(201).json(users);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error ' + err);
+  });
+});
+
+//get single user by username
+app.get('/users/:username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error ' + err);
+  });
 });
 
 // delete USER by ID
-app.delete('/users/:username', function (req, res) {
+app.delete('/users/:username', (req, res) => {
   const user = users.find((user) => { return user.username === req.params.username });
 
   if (user) {
@@ -242,17 +287,21 @@ app.delete('/users/:username', function (req, res) {
 });
 
 //update user by id
-app.put('/users/:username', function (req, res) {
-  let user = users.find((user) => { return user.username === req.params.username });
-
-  if (user) {
-    user.email = req.body.email;
-    user.dob = req.body.dob;
-    user.name = req.body.name;
-    res.status(201).send('User ' + user.username + 'Updated user information to: email: ' + user.email + ' dob: ' + user.dob + ' name: ' + user.name);
-  } else {
-    res.status(404).send('User ' + user.username + 'not found')
-  }
+app.put('/users/:username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+  {
+    Username: req.body.Username,
+    Password: req.body.Password,
+    Email: req.body.Email,
+    Birthday: req.body.Birthday,
+  } },
+  { new: true }, //This line makes sure the the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error ' + err);
+    }
+  });
 });
 
 //update favorite movies
