@@ -232,10 +232,10 @@ app.post('/users', (req, res) => {
   Users.findOne({ Username : req.body.Username })
   .then((user) => {
     if (user) {
-      return res.status(400).send(req.body.Username + 'already exists');
+      return res.status(400).send(req.body.Username + ' already exists');
     }
       Users.create({
-        Userne: req.body.Username,
+        Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
         Birthday: req.body.Birthday,
@@ -265,7 +265,7 @@ app.get('/users', (req, res) => {
 });
 
 //get single user by username
-app.get('/users/:username', (req, res) => {
+app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) => {
     res.json(user);
@@ -277,13 +277,19 @@ app.get('/users/:username', (req, res) => {
 });
 
 // delete USER by ID
-app.delete('/users/:username', (req, res) => {
-  const user = users.find((user) => { return user.username === req.params.username });
-
-  if (user) {
-    users.filter(function (obj) { return obj.username !== req.params.username });
-    res.status(201).send('User ID ' + user.username + ' was deleted.');
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+  .then((user) => {
+    if (!user) {
+    res.status(400).send(req.params.Username + ' was not found');
+  } else {
+    res.status(200).send(req.params.Username + ' was deleted');
   }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error ' + err);
+  });
 });
 
 //update user by id
@@ -300,8 +306,26 @@ app.put('/users/:username', (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error ' + err);
+    } else {
+      res.json(updatedUser);
     }
   });
+});
+
+//add favorite movie
+app.post('/users/:username/favoritemovies/:movieID', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $push: { favoriteMovies: req.params.movieID }
+  },
+{ new: true}, //updated document is returned
+(err, updatedUser) => {
+  if (err) {
+    console.log(err);
+    res.status(500).send('Error ' + err)
+  } else {
+    res.json(updatedUser);
+  }
+});
 });
 
 //update favorite movies
