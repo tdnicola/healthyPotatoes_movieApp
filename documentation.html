@@ -5,16 +5,16 @@
     <title>Health Potatos Movie App</title>
   </head>
   <body>
-    This is the documentation for the app healthy potatos
+  <h1 align="center">This is the documentation for the app healthy potatos</h1>
     <br>
-    Endpoints:
+    <H2>Endpoints:</H2>
     <table>
       <tr>
-        <th>Business logic</th>
-        <th>URL</th>
-        <th>HTTP Method</th>
-        <th>Request Body Data Format</th>
-        <th>Response Body Data Format</th>
+        <th style="text-decoration: underline;">Business logic</th>
+        <th style="text-decoration: underline;">URL</th>
+        <th style="text-decoration: underline;">HTTP Method</th>
+        <th style="text-decoration: underline;">Request Body Data Format</th>
+        <th style="text-decoration: underline;">Response Body Data Format</th>
       </tr>
       <tr>
         <th>Return a list of all movies to the user</th>
@@ -45,13 +45,6 @@
         <th>text of a director of a movie </th>
       </tr>
       <tr>
-        <th>Return director information (bio, birth year, death year)</th>
-        <th>/directors</th>
-        <th>GET</th>
-        <th>NONE</th>
-        <th>A JSON object holding information based off of the list of directors</th>
-      </tr>
-      <tr>
         <th>Return director information (bio, birth year, death year) by name</th>
         <th>/directors/[director]</th>
         <th>GET</th>
@@ -62,43 +55,85 @@
          <th>Allow new users to register</th>
          <th>/users</th>
          <th>POST</th>
-         <th>Json object holding data about the user to add structured like: <br>
+         <th align="left">Json object holding data about the user to add structured like: <br>
            { <br>
-           username: "guest", <br>
-           password: "password",<br>
-           email: "email", <br>
-           dob: "10/25/1980", <br>
+           "username": "guest", *string*<br>
+           "password": "password", *string*<br>
+           "email": "email", *string*<br>
+           "birthday": "10/25/1980", *date*<br>
            }<br>
           </th>
-          <th> Json object holding data about the user that was added: <br>
+          <th align="left"> Json object holding data about the user that was added: <br>
             { <br>
             username: "guest" <br>
             password: "password"<br>
             email: "email"<br>
-            dob: "10/25/1980" <br>
+            birthday: "10/25/1980" <br>
             }<br>
           </th>
        </tr>
        <tr>
-          <th>Allow users to update their user info (username, password, email, date of birth)</th>
-          <th>/users/[username][email][dob][name]</th>
-          <th>PUT</th>
+          <th>Return a list of all users</th>
+          <th>/users</th>
+          <th>GET</th>
           <th>none</th>
-          <th>Text message indicating the information was updated</th>
+          <th align="left">A JSON object holding information based off users
+            <br>
+              { <br>
+              username: "guest" <br>
+              password: "password"<br>
+              email: "email"<br>
+              birthday: "10/25/1980" <br>
+              favoriteMovies: []<br>
+              }<br></th>
+        </tr>
+        <tr>
+           <th>Return a single user's information</th>
+           <th>/users/[username]</th>
+           <th>GET</th>
+           <th>none</th>
+           <th align="left">A JSON object holding information on user
+             <br>
+               { <br>
+               username: "guest" <br>
+               password: "password"<br>
+               email: "email"<br>
+               birthday: "10/25/1980" <br>
+               favoriteMovies: []<br>
+               }<br></th>
+         </tr>
+       <tr>
+          <th>Allow users to update their user info (username, password, email, date of birth)</th>
+          <th>/users/[username]</th>
+          <th>PUT</th>
+          <th align='left'>
+            { <br>
+             "username": "guest" <br>
+             "password": "password"<br>
+             "email": "email"<br>
+             "birthday": "10/25/1980" <br>
+           </th>
+          <th align='left'>
+            { <br>
+             "username": "guest" <br>
+             "password": "password"<br>
+             "email": "email"<br>
+             "birthday": "10/25/1980" <br>
+           </th>
         </tr>
         <tr>
           <th>Allow users to add a movie to their list of favorites</th>
-          <th>/users/[username]/[movies]</th>
+          <th>/users/[username]/favoriteMovies/[movies]</th>
           <th>PUT</th>
           <th>none</th>
-          <th>A text message indicating the movie was successfully added</th>
+          <th>A message indicating the movie was successfully added</th>
         </tr>
         <tr>
           <th>Allow users to remove a movie from their list of favorites</th>
-          <th>/users/[username]/[movies]</th>
+          <th>/users/[username]/favoriteMovies/[movies]</th>
           <th>DELETE</th>
           <th>none</th>
-          <th>A text message indicating the movie was successfully removed</th>
+          <th>A message indicating the movie was successfully removed</th>
         </tr>
         <tr>
           <th>Allow existing users to deregister</th>
