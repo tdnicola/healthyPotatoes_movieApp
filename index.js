@@ -3,7 +3,9 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid'),
   mongoose = require ('mongoose'),
-  Models = require('./model.js');
+  Models = require('./model'),
+  passport = require('passport');
+  require('./passport');
 
 const app = express();
 const Movies = Models.Movie;
@@ -15,6 +17,9 @@ mongoose.connect('mongodb://localhost:27017/potatoes', {useNewUrlParser: true});
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+//passport authorization in auth.js file
+let auth = require('./auth')(app);
+// router.use(bodyParser.json());
 //static public folders
 app.use(express.static('public'));
 
@@ -24,7 +29,7 @@ app.get('/', (req, res) => {
 });
 
 //Gets json list of all movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
