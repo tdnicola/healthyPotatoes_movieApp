@@ -1,13 +1,13 @@
-const jwtSecret = 'cannotsay';
+const jwtSecret = 'cannotsay'; //secret web code
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 require('./passport');
 
 function generateJWTToken(user) {
   return jwt.sign(user, jwtSecret, {
-    subject: user.username,
-    expiresIn: '7d',
-    algorithm: 'HS256',
+    subject: user.username, //username encoding with jwt
+    expiresIn: '7d', //length of token -7 days
+    algorithm: 'HS256', //algorithm of coding
   });
 }
 

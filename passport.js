@@ -28,9 +28,9 @@ passport.use(new LocalStrategy({
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'cannotsay'
+  secretOrKey: 'cannotsay' //same from auth.js jwtSecret
 }, (jwtPayload, callback) => {
-  return Users,findById(jwtPayload._id)
+  return Users.findById(jwtPayload._id)
   .then((user) => {
     return callback(null, user);
   })
