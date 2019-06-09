@@ -11,15 +11,15 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/potatoes', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
 
 // logging info-morgan and bodyParser
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
 //passport authorization in auth.js file
-let auth = require('./auth')(app);
-// router.use(bodyParser.json());
+const auth = require('./auth')(app);
+
 //static public folders
 app.use(express.static('public'));
 
