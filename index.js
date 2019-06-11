@@ -14,10 +14,10 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 //hosting
-// mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 //local hosting
-mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
 
 // logging info-morgan and bodyParser
 app.use(morgan('common'));
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 //Gets json list of all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => { // passport.authenticate('jwt', { session: false }), for authentication
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
