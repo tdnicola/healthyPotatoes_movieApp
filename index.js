@@ -31,9 +31,9 @@ const auth = require('./auth')(app);
 app.use(express.static('public'));
 
 // Movie responses
-// app.get('/', (req, res) => {
-//   res.send('Welcome to some healthy potatos?');
-// });
+app.get('/', (req, res) => {
+  res.send('Welcome to some healthy potatos?');
+});
 
 //Gets json list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
