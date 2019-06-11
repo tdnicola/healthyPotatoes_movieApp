@@ -8,6 +8,7 @@ const express = require('express'),
   require('./passport'),
   cors = require('cors'),
   validator = require('express-validator');
+
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
