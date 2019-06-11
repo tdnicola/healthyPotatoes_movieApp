@@ -19,6 +19,9 @@ mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true }
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+// charactor validation
+app.use(validator());
+
 //CORS  Cross-Origin Resource Sharing
 app.use(cors());
 
@@ -115,7 +118,22 @@ app.get('/directors/:director', passport.authenticate('jwt', { session: false })
 
 //create user
 app.post('/users', (req, res) => {
+//validation logic here for requests
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric();
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('email', 'Email is required').notEmpty();
+  req.checkBody('email', 'Not a valid email').isEmail();
+
+//check validation object for errors
+  const errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(422).json({ errors: errors });
+  }
+
   const hashedPassword = Users.hashPassword(req.body.password); //hashing password from model.js
+
   Users.findOne({ username: req.body.username })
   .then((user) => {
     if (user) {
@@ -164,6 +182,19 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), (r
 
 //update user by id
 app.put('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  //validation logic here for requests on update
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric();
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('email', 'Email is required').notEmpty();
+  req.checkBody('email', 'Not a valid email').isEmail();
+
+  //check validation object for errors
+    const errors = req.validationErrors();
+
+    if (errors) {
+      return res.status(422).json({ errors: errors });
+    }
   Users.findOneAndUpdate({ username: req.params.username }, { $set:
   {
     username: req.body.username,
@@ -234,12 +265,13 @@ app.delete('/users/:username/favoriteMovies/:movieId', passport.authenticate('jw
 app.use(express.static('public'));
 
 //error handingling
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('You broke something');
 });
 
 // listening for requests
-app.listen(8080, () =>
-console.log('Your app is listening on port 8080')
+const port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', () =>
+console.log('Your app is listening on port 3000')
 );
