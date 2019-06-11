@@ -28,9 +28,13 @@ const userSchema = mongoose.Schema({
 });
 
 //bcrypt hashing
-userSchema.statics.hashPassword = (password) => bcrypt.hashSync(password, 10);
+userSchema.statics.hashPassword = function (password) {
+  return bcrypt.hashSync(password, 10);
+};
 
-userSchema.methods.validatePassword = (password) => bcrypt.compareSync(password, this.Password);
+userSchema.methods.validatePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 
 const Movie = mongoose.model('Movie', movieSchema);

@@ -14,10 +14,10 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 //hosting
-mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
+// mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 //local hosting
-// mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
 
 // logging info-morgan and bodyParser
 app.use(morgan('common'));
@@ -132,9 +132,9 @@ app.post('/users', (req, res) => {
 //check validation object for errors
   const errors = req.validationErrors();
 
-  if (errors) {
-    return res.status(422).json({ errors: errors });
-  }
+  // if (errors) {
+  //   return res.status(422).json({ errors: errors });
+  // }
 
   const hashedPassword = Users.hashPassword(req.body.password); //hashing password from model.js
 
@@ -268,7 +268,7 @@ app.delete('/users/:username/favoriteMovies/:movieId', passport.authenticate('jw
 //static public folders
 app.use(express.static('public'));
 
-//error handingling
+//error handeling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('You broke something');
