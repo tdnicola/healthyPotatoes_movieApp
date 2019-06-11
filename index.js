@@ -5,8 +5,10 @@ const express = require('express'),
   mongoose = require ('mongoose'),
   Models = require('./model'),
   passport = require('passport');
-  require('./passport');
-
+  require('./passport'),
+  cors = require('cors'),
+  auth = require('./auth')(app),
+  validator = require('express-validator');
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -16,6 +18,9 @@ mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true }
 // logging info-morgan and bodyParser
 app.use(morgan('common'));
 app.use(bodyParser.json());
+
+//CORS  Cross-Origin Resource Sharing
+app.use(cors());
 
 //passport authorization in auth.js file
 const auth = require('./auth')(app);
@@ -110,6 +115,7 @@ app.get('/directors/:director', passport.authenticate('jwt', { session: false })
 
 //create user
 app.post('/users', (req, res) => {
+  const hashedPassword = Users.hashPassword(req.body.password); //hashing password from model.js
   Users.findOne({ username: req.body.username })
   .then((user) => {
     if (user) {
@@ -117,7 +123,7 @@ app.post('/users', (req, res) => {
     }
       Users.create({
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword, //requiring hashed password
         email: req.body.email,
         birthday: req.body.birthday,
       })
