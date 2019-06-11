@@ -14,7 +14,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 //hosting
-mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://potatoeAdmin:warmsea1@healthypotatoes-xyo3x.mongodb.net/potatoes?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 //local hosting
 // mongoose.connect('mongodb://localhost:27017/potatoes', { useNewUrlParser: true });
