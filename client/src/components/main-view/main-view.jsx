@@ -1,14 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
-//importing moviecard info
+//importing moviecard/movieview info
 import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      movies: [],
+      selectedMovie: null
     };
   }
 
@@ -28,19 +30,35 @@ export class MainView extends React.Component {
     });
   }
 
+//clicking movie to get more info
+  onMovieClick(movie) {
+    this.setState({
+      selectedMovie: movie
+    });
+  }
+
+//button to return back
+  onButtonClick() {
+    this.setState({
+    selectedMovie: null
+  });
+  }
+
 render() {
   //if the state isn't initialized, this will throw on runtime
   //before the data is initially loaded
-  const { movies } = this.state;
+  const { movies, selectedMovie } = this.state;
 
   //before the movies has been loaded
-  // if (!movies) return <div className="main-view" />;
-    debugger
+  if (!movies) return <div className="main-view" />;
   return (
     <div className="main-view">
-    { movies.map(movie => (
-      <div className="MovieCard" key={movie._id}>{movie.title}</div>
-    ))}
+      {selectedMovie
+      ? <MovieView movie={selectedMovie} onClick={movie => this.onButtonClick()} />
+    : movies.map(movie => (
+      <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+    ))
+  }
     </div>
     );
   }
