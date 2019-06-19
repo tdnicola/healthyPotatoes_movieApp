@@ -25761,7 +25761,7 @@ module.exports = function bind(fn, thisArg) {
   };
 };
 
-},{}],"../../node_modules/is-buffer/index.js":[function(require,module,exports) {
+},{}],"../../node_modules/axios/node_modules/is-buffer/index.js":[function(require,module,exports) {
 /*!
  * Determine if an object is a Buffer
  *
@@ -26107,7 +26107,7 @@ module.exports = {
   trim: trim
 };
 
-},{"./helpers/bind":"../../node_modules/axios/lib/helpers/bind.js","is-buffer":"../../node_modules/is-buffer/index.js"}],"../../node_modules/axios/lib/helpers/buildURL.js":[function(require,module,exports) {
+},{"./helpers/bind":"../../node_modules/axios/lib/helpers/bind.js","is-buffer":"../../node_modules/axios/node_modules/is-buffer/index.js"}],"../../node_modules/axios/lib/helpers/buildURL.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -26724,7 +26724,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"../../node_modules/axios/lib/utils.js","./../core/settle":"../../node_modules/axios/lib/core/settle.js","./../helpers/buildURL":"../../node_modules/axios/lib/helpers/buildURL.js","./../helpers/parseHeaders":"../../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../../node_modules/axios/lib/core/createError.js","./../helpers/cookies":"../../node_modules/axios/lib/helpers/cookies.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"../../node_modules/axios/lib/utils.js","./../core/settle":"../../node_modules/axios/lib/core/settle.js","./../helpers/buildURL":"../../node_modules/axios/lib/helpers/buildURL.js","./../helpers/parseHeaders":"../../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../../node_modules/axios/lib/core/createError.js","./../helpers/cookies":"../../node_modules/axios/lib/helpers/cookies.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -27034,7 +27034,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"./utils":"../../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/http":"../../node_modules/axios/lib/adapters/xhr.js","./adapters/xhr":"../../node_modules/axios/lib/adapters/xhr.js","process":"../../../../../usr/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../../node_modules/axios/lib/helpers/isAbsoluteURL.js":[function(require,module,exports) {
+},{"./utils":"../../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/http":"../../node_modules/axios/lib/adapters/xhr.js","./adapters/xhr":"../../node_modules/axios/lib/adapters/xhr.js","process":"../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../../node_modules/axios/lib/helpers/isAbsoluteURL.js":[function(require,module,exports) {
 'use strict';
 
 /**
@@ -27555,22 +27555,29 @@ var MainView =
 function (_React$Component) {
   _inherits(MainView, _React$Component);
 
-  function MainView() {
+  function MainView(props) {
+    var _this;
+
     _classCallCheck(this, MainView);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainView).apply(this, arguments));
-  }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this, props));
+    _this.state = {
+      movies: []
+    };
+    return _this;
+  } //one of the hooks available in React Component
+
 
   _createClass(MainView, [{
     key: "componentDidMount",
-    //one of the hooks available in React Component
     value: function componentDidMount() {
-      var _this = this;
+      var _this2 = this;
 
-      _axios.default.get('https://healthypotatoes.herokuapp.com/movies').then(function (response) {
-        ///assign the result to a state
-        _this.setState({
-          movies: response.data
+      _axios.default.get('https://healthypotatoes.herokuapp.com/movies').then(function (res) {
+        console.log(res); ///assign the result to a state
+
+        _this2.setState({
+          movies: res.data
         });
       }).catch(function (error) {
         console.log(error);
@@ -27582,17 +27589,16 @@ function (_React$Component) {
       //if the state isn't initialized, this will throw on runtime
       //before the data is initially loaded
       var movies = this.state.movies; //before the movies has been loaded
+      // if (!movies) return <div className="main-view" />;
 
-      if (!movies) return _react.default.createElement("div", {
-        className: "main-view"
-      });
+      debugger;
       return _react.default.createElement("div", {
         className: "main-view"
       }, movies.map(function (movie) {
-        return _react.default.createElement(_movieCard.MovieCard, {
-          key: movie._id,
-          movie: movie
-        });
+        return _react.default.createElement("div", {
+          className: "MovieCard",
+          key: movie._id
+        }, movie.title);
       }));
     }
   }]);
@@ -27601,7 +27607,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
-},{"react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -27633,7 +27639,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -27668,19 +27674,19 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _mainView = require("./components/main-view/main-view");
+var _mainView = require("./components/main-view/main-view.jsx");
 
 require("./index.scss");
 
@@ -27705,33 +27711,32 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 //main component(will eventually us all others)
-var healthyPotatoesApp =
+var HealthyPotatoesApp =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(healthyPotatoesApp, _React$Component);
+  _inherits(HealthyPotatoesApp, _React$Component);
 
-  function healthyPotatoesApp() {
-    _classCallCheck(this, healthyPotatoesApp);
+  function HealthyPotatoesApp() {
+    _classCallCheck(this, HealthyPotatoesApp);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(healthyPotatoesApp).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(HealthyPotatoesApp).apply(this, arguments));
   }
 
-  _createClass(healthyPotatoesApp, [{
+  _createClass(HealthyPotatoesApp, [{
     key: "render",
     value: function render() {
-      if (!movies) return 'loading..';
       return _react.default.createElement(_mainView.MainView, null);
     }
   }]);
 
-  return healthyPotatoesApp;
+  return HealthyPotatoesApp;
 }(_react.default.Component); //finds the root of your app
 
 
 var container = document.getElementsByClassName('app-container')[0]; //tells react to render your app in the root DOM element
 
-_reactDom.default.render(_react.default.createElement(healthyPotatoesApp), container);
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./index.scss":"index.scss"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_reactDom.default.render(_react.default.createElement(HealthyPotatoesApp), container);
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/main-view/main-view.jsx":"components/main-view/main-view.jsx","./index.scss":"index.scss"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -27759,7 +27764,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52445" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50469" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -27934,5 +27939,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map
