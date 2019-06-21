@@ -57,7 +57,7 @@ render() {
   //before the data is initially loaded
   const { movies, selectedMovie, user } = this.state;
 
-  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
 //before the movies has been loaded
   if (!movies) return <div className="main-view" />;
