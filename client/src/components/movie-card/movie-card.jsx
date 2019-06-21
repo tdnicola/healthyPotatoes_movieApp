@@ -1,4 +1,6 @@
 import React from 'react';
+//propTypes validate the data types based on the configuration
+import PropTypes from 'prop-types';
 
 export class MovieCard extends React.Component {
   render() {
@@ -9,3 +11,10 @@ export class MovieCard extends React.Component {
     );
   }
 }
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
+};
