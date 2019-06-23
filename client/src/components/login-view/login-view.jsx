@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import PropTypes from 'prop-types';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // const registration = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,65 +18,35 @@ export function LoginView(props) {
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type='text' value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type='button' onClick={handleSubmit}>Submit</button>
+    <Container className='loginContainer'>
+      <h1>Welcome to some HealthyPotatoes!</h1>
+      <form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" value={username} onChange={e => setUsername(e.target.value)} />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => setPassword(e.target.value)} />
+        </Form.Group>
+        <Button variant="primary" onClick={handleSubmit}>
+          Log in
+        </Button>
+
+        <Form.Group controlId='newUser'>
+          <Form.Text>New User? Click <Button id='registerButton' onClick={() => props.onClick()}> Meh! </Button>
+          </Form.Text>
+        </Form.Group>
     </form>
+    </Container>
   );
 }
 
-//   constructor(props) {
-//     super(props);
-//
-//     this.state = {
-//       username: '',
-//       password: '',
-//     };
-//
-//     this.onUserNameChange = this.onUserNameChange.bind(this);
-//     this.onPasswordChange = this.onPasswordChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-//
-//   onUserNameChange(event) {
-//     this.setState({
-//       username: event.target.value
-//     });
-//   }
-//
-//   onPasswordChange(event) {
-//     this.setState({
-//       password: event.target.value
-//     });
-//   }
-//
-//   handleSubmit() {
-//     const { username, password } = this.state;
-//     console.log(username, password);
-//     /* send a request to the server for authentication */
-//     /* then call this.props.onLoggedIn(username) */
-//   }
-//
-//   render() {
-//     return (
-//       <form>
-//         <label>
-//           Username:
-//           <input type='text' value={this.state.username} onChange={this.onUserNameChange} />
-//         </label>
-//         <label>
-//           Password:
-//           <input type='password' value={this.state.password} onChange={this.onPasswordChange} />
-//         </label>
-//         <button type='button' onClick={this.handleSubmit}>Submit</button>
-//     </form>
-//   );
-//   }
-// }
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
+};
