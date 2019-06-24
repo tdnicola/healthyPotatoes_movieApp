@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import './registration-view.css';
 
 export function RegistrationView(props) {
   const [username, createUsername] = useState('');
@@ -18,7 +19,7 @@ export function RegistrationView(props) {
   };
 
   return (
-    <Form>
+    <Form className='registrationForm'>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => createEmail(e.target.value)} />
@@ -45,6 +46,9 @@ export function RegistrationView(props) {
       </Form.Group>
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Register me!
+      </Button>
+      <Button variant='primary'>
+        Already a member?
       </Button>
     </Form>
 

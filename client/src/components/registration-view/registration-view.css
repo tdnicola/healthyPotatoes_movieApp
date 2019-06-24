@@ -1,0 +1,11 @@
+body {
+    background: url('http://clipart-library.com/img/759208.jpg');
+    background-size: cover;
+}   
+
+.registrationForm {
+    background-color: #A50E23;
+    border-radius: 25px;
+    color: white;
+    margin-top: 20px;
+    }

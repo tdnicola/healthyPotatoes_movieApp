@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
+import './login-view.css';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -16,6 +17,11 @@ export function LoginView(props) {
     // workaround for authentication
     props.onLoggedIn(username);
   };
+
+
+  // register () {
+  //   this.setState({RegistrationView})
+  // }
 
   return (
     <Container className='loginContainer'>
@@ -50,3 +56,5 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 };
+
+//      <Form.Text>New User? Click <Button id='registerButton' onClick={() => this.register()}> Meh! </Button>
