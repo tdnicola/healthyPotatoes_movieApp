@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
-import './login-view.css';
+import './login-view.scss';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -18,11 +18,6 @@ export function LoginView(props) {
     props.onLoggedIn(username);
   };
 
-
-  // register () {
-  //   this.setState({RegistrationView})
-  // }
-
   return (
     <Container className='loginContainer'>
       <h1>Welcome to some HealthyPotatoes!</h1>
@@ -30,7 +25,7 @@ export function LoginView(props) {
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" value={username} onChange={e => setUsername(e.target.value)} />
-          <Form.Text className="text-muted">
+          <Form.Text className="emailShare">
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
@@ -39,7 +34,7 @@ export function LoginView(props) {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => setPassword(e.target.value)} />
         </Form.Group>
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button id='loginButton' onClick={handleSubmit}>
           Log in
         </Button>
 

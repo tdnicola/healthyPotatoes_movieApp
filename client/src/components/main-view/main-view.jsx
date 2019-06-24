@@ -1,16 +1,16 @@
-import React from 'react';
+//imports
 import axios from 'axios';
-import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import React from 'react';
+import Row from 'react-bootstrap/Row';
 
 //importing moviecard/movieview info
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import './main-view.css';
+import './main-view.scss';
 
 export class MainView extends React.Component {
   constructor(props) {
@@ -102,6 +102,7 @@ render() {
           {selectedMovie
           ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
           : movies.map(movie => (
+            
             <Col key={movie._id} xs={12} sm={6} md={4}>
             <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
             </Col>
