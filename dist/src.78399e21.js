@@ -30243,9 +30243,10 @@ function RegistrationView(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, password); // send a request to the server for authentication
+    console.log(username, password, birthday, email); // send a request to the server for authentication
     // workaround for authentication
-    // props.onLoggedIn(username);
+
+    props.onLoggedIn(username);
   };
 
   return _react.default.createElement(_Form.default, {
@@ -30298,22 +30299,11 @@ function RegistrationView(props) {
     type: "submit",
     onClick: handleSubmit
   }, "Register me!"), _react.default.createElement(_Button.default, {
-    variant: "primary"
-  }, "Already a member?"))
-  /*
-  <form>
-    <label>
-      Input Username:
-      <input type='text' value={username} onChange={e => setUsername(e.target.value)} />
-    </label>
-    <label>
-      Input Password:
-      <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
-    </label>
-    <button type='button' onClick={handleSubmit}>Register</button>
-  </form>
-  */
-  ;
+    variant: "primary",
+    onClick: function onClick() {
+      return props.onClick();
+    }
+  }, "Already a member?"));
 }
 },{"react":"../../node_modules/react/index.js","react-bootstrap/Form":"../../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../../node_modules/react-bootstrap/Button.js","./registration-view.css":"components/registration-view/registration-view.css"}],"components/main-view/main-view.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -30606,7 +30596,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65179" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49535" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

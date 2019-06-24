@@ -9,13 +9,12 @@ export function RegistrationView(props) {
   const [email, createEmail] = useState('');
   const [birthday, createDob] = useState('');
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    console.log(username, password, birthday, email);
     // send a request to the server for authentication
     // workaround for authentication
-    // props.onLoggedIn(username);
+    props.onLoggedIn(username);
   };
 
   return (
@@ -47,23 +46,9 @@ export function RegistrationView(props) {
       <Button variant="primary" type="submit" onClick={handleSubmit}>
         Register me!
       </Button>
-      <Button variant='primary'>
+      <Button variant='primary'onClick={() => props.onClick()}>
         Already a member?
       </Button>
     </Form>
-
-    /*
-    <form>
-      <label>
-        Input Username:
-        <input type='text' value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Input Password:
-        <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type='button' onClick={handleSubmit}>Register</button>
-    </form>
-    */
   );
 }
