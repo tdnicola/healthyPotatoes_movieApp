@@ -21,10 +21,11 @@ export function RegistrationView(props) {
     // workaround for authentication
     props.onLoggedIn(username);
 
-    axios.post('https://healthypotatoes.herokuapp.com/users', { username, password, birthday, email })
-    .then(res => {
-      console.log(res);
-    });
+    // posting axios method? not sure if needed currently.
+    // axios.post('https://healthypotatoes.herokuapp.com/users', { username, password, birthday, email })
+    // .then(res => {
+    //   console.log(res);
+    // });
   };
 
   return (
