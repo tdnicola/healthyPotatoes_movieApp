@@ -30251,16 +30251,11 @@ function RegistrationView(props) {
     console.log(username, password, birthday, email); // send a request to the server for authentication
     // workaround for authentication
 
-    props.onLoggedIn(username);
-
-    _axios.default.post('https://healthypotatoes.herokuapp.com/users', {
-      username: username,
-      password: password,
-      birthday: birthday,
-      email: email
-    }).then(function (res) {
-      console.log(res);
-    });
+    props.onLoggedIn(username); // posting axios method? not sure if needed currently.
+    // axios.post('https://healthypotatoes.herokuapp.com/users', { username, password, birthday, email })
+    // .then(res => {
+    //   console.log(res);
+    // });
   };
 
   return _react.default.createElement(_Container.default, {
@@ -30615,7 +30610,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52844" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56451" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
