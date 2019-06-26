@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
 //importing moviecard/movieview info
 import { MovieCard } from '../movie-card/movie-card';
@@ -26,17 +27,14 @@ export class MainView extends React.Component {
   //one of the hooks available in React Component
 
   componentDidMount() {
-    axios.get('https://healthypotatoes.herokuapp.com/movies')
-    .then(res => {
-      console.log(res);
-      ///assign the result to a state
+
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
       this.setState({
-        movies: res.data
+        user: localStorage.getItem('user')
       });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      this.getMovies(accessToken);
+    }
   }
 
 //clicking movie to get more info
@@ -57,6 +55,7 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  //getting the movies after the user is logged in
   getMovies(token) {
     axios.get('https://healthypotatoes.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
@@ -84,6 +83,13 @@ export class MainView extends React.Component {
   });
   }
 
+  buttonLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    this.setState({
+      user: false,
+    })
+  }
   //testing
   onSignedIn(user) {
     this.setState({
@@ -123,6 +129,7 @@ render() {
   return (
     <div className="main-view">
       <Container>
+        <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log out</Button>
         <Row>
           {selectedMovie
           ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
