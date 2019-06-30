@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import './registration-view.scss';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 
 export function RegistrationView(props) {
@@ -17,15 +18,25 @@ export function RegistrationView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password, birthday, email);
-    // send a request to the server for authentication
-    // workaround for authentication
-    props.onLoggedIn(username);
 
-    // posting axios method? not sure if needed currently.
-    // axios.post('https://healthypotatoes.herokuapp.com/users', { username, password, birthday, email })
-    // .then(res => {
-    //   console.log(res);
-    // });
+    // workaround for authentication
+    // props.onLoggedIn(username);
+
+    // send a request to the server for authentication
+    axios.post('https://healthypotatoes.herokuapp.com/users', {
+      username: username, 
+      password: password, 
+      birthday: birthday, 
+      email: email,
+   })
+    .then(res => {
+      const data = res.data;
+      console.log(data);
+      window.open('/')
+    })
+    .catch(e => {
+      console.log('error registering user')
+    })
   };
 
   return (
@@ -59,9 +70,10 @@ export function RegistrationView(props) {
         <Button variant="primary" type="submit" onClick={handleSubmit}>
           Register me!
         </Button>
-        <Button variant='primary'onClick={() => props.onClick()}>
-          Already a member?
-        </Button>
+
+        <Link to={`/`}>
+            <Button id='loginButtonRegistration'>Already a member?</Button>
+          </Link>
       </Form>
     </Container>
   );
@@ -69,5 +81,4 @@ export function RegistrationView(props) {
 
 RegistrationView.propTypes = {
   onSignedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
 };
