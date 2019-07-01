@@ -1,26 +1,35 @@
+
 import React from 'react';
 //propTypes validate the data types based on the configuration
 import PropTypes from 'prop-types';
 //bootstrap info
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+
 import './movie-card.scss';
+import { Link } from 'react-router-dom';
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onClick } = this.props;
-
+    const { movie } = this.props;
     return (
-      <Card style={{ width: '100%' }}>
-        <Card.Img variant="top" src={movie.imagepath} />
-        <Card.Body>
-          <Card.Title>{movie.title}</Card.Title>
-          <Card.Text>{movie.description}</Card.Text>
-           <Button variant="primary" onClick={() => onClick(movie)} className="movie-card">
-              More Info
-           </Button>
-        </Card.Body>
-      </Card>
+
+          <Col xs={12} sm={6} md={4}>
+            <Card>
+              <Card.Img src={movie.imagepath} />
+              <Card.Body>
+                <Card.Title>{movie.title}</Card.Title>
+                <Card.Text>{movie.description}</Card.Text>
+                <Link to={`/movies/${movie._id}`}>
+                  <Button>More info</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+         </Col>
+ 
     );  
   }
 }
@@ -29,5 +38,4 @@ MovieCard.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string
   }).isRequired,
-  onClick: PropTypes.func.isRequired
 };
