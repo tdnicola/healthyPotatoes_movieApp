@@ -6,11 +6,13 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 //importing moviecard/movieview info
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { ProfileView } from '../profile-view/profile-view';
 import './main-view.scss';
 
 export class MainView extends React.Component {
@@ -80,8 +82,9 @@ export class MainView extends React.Component {
     localStorage.removeItem('username');
     this.setState({
       user: false,
-      // selctedMovie: null,
+      selctedMovie: null,
     })
+    window.location.reload();
   }
 
   onSignedIn(user) {
@@ -117,24 +120,40 @@ render() {
   
 
 //before the movies has been loaded
-  if (!movies) return <div className="main-view" />;
+  // if (!movies) return <div className="main-view" />;
 
   return (
     <Router>
       <div className="main-view">
         <Container>
+          <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
+          <Link to={`/user`}> 
+          <Button>Profile</Button>
+          </Link>
           <Row>
+
             <Route exact path='/' render={() => {
               if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
               return movies.map(m => 
-              <Col>
+              <Col xs={12} sm={6} md={4} lg= {4}>
               <MovieCard key={m._id} movie={m}/>
               </Col>)
                 } 
               } />
+
+            {/* <Route path='/movies/:movieId/genre' render={({match}) => <GenreView movie={movies.find(m => m._id === match.params.movieId)}/>}/> */}
+
+            <Route path='/user' render={() => <ProfileView />} />
+
             <Route path='/register' render={() => <RegistrationView />} />
-            <Route exact path='/movies' render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/>
+
+            <Route exact path='/movies' render={() => movies.map(m => 
+              <Col xs={12} sm={6} md={4} lg= {4}>
+              <MovieCard key={m._id} movie={m}/>
+              </Col>)}/>
+
             <Route path='/movies/:movieId' render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+
             </Row>
         </Container>
       </div>
