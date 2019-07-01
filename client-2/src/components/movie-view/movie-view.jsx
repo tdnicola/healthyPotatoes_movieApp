@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import React from 'react';
 import './movie-view.scss';
-import { Link } from 'react-router-dom';
+
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -24,10 +24,10 @@ export class MovieView extends React.Component {
                       <Card.Text>Director: {movie.director.name}</Card.Text>
                       <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
                       <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
-                      <Link to={`/movies`}>
-                        <Button variant='link'> Go back</Button>
-                      </Link>
 
+                      {/* <Button onClick={() => onClick()} variant="link">
+                        Go back
+                      </Button> */}
                     </Card.Body>
                   </Card>   
     </div>

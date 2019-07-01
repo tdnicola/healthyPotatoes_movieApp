@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
 import './login-view.scss';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -51,11 +50,7 @@ export function LoginView(props) {
         </Button>
 
         <Form.Group controlId='newUser'>
-          <Form.Text>New User? Click 
-          <Link to={`/register`}>
-            <Button id='registerButton'>here</Button>
-          </Link>
-          
+          <Form.Text>New User? Click <Button id='registerButton' onClick={() => props.onClick()}> Meh! </Button>
           </Form.Text>
         </Form.Group>
     </form>
@@ -65,6 +60,7 @@ export function LoginView(props) {
 
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 //      <Form.Text>New User? Click <Button id='registerButton' onClick={() => this.register()}> Meh! </Button>
