@@ -7,8 +7,8 @@ import Button from 'react-bootstrap/Button';
 
 
 export class ProfileView extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: null,
@@ -19,13 +19,18 @@ export class ProfileView extends React.Component {
         }
     }
 
+    componentDidMount() {
+      let accessToken = localStorage.getItem('token');
+      this.getUser(accessToken);
+    }
+
     getUser(token) {
-        let username = localStorage.getItem('user');
+        let username = this.props.username;
         axios.get(`https://healthypotatoes.herokuapp.com/users/${username}`, {
           headers: { Authorization: `Bearer ${token}`}
         })
         .then(res => {
-            console.log(res.data)
+            console.log(res.data, 'testing')
           this.setState({
             userdata: res.data,
             username: res.data.username,
@@ -40,15 +45,16 @@ export class ProfileView extends React.Component {
         });
       }
 
+
     render() {
         return (
             <div>
                 <Card>
                     <Card.Body>
                     <Card.Title>{this.state.username}</Card.Title>
-                    <Card.Text>email: {this.state.email}}</Card.Text>
-                    <Card.Text>birthday {this.state.birthday}}</Card.Text>
-                    <Card.Text>favorite movies: {this.state.favoriteMovies}}</Card.Text>
+                    <Card.Text>email: {this.state.email}</Card.Text>
+                    <Card.Text>birthday {this.state.birthday}</Card.Text>
+                    <Card.Text>favorite movies: {this.state.favoriteMovies}</Card.Text>
 
                     <Link to={`/movies`}>
                         <Button variant='primary'> Go back</Button>
