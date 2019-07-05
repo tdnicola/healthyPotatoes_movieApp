@@ -13,6 +13,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { ProfileView } from '../profile-view/profile-view';
+import { UpdateProfile } from '../update-profile/update-profile';
 import './main-view.scss';
 
 export class MainView extends React.Component {
@@ -130,7 +131,7 @@ render() {
         <Container>
           <Row>
 
-            <Route exact path='/movies' render={() => {
+            <Route exact path='/' render={() => {
 
               if (!user) return (
       
@@ -138,34 +139,23 @@ render() {
         
                 return (
                   <div>
-                <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
-                   <Link to={`/user`}> 
+                    <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
+                    <Link to={`/user`}> 
                       <Button>Profile</Button>
-                    </Link>{
-                    movies.map(m => 
+                    </Link>
+                    {movies.map(m => 
                       <Col xs={12} sm={6} md={4} lg= {4}>
                       <MovieCard key={m._id} movie={m}/>
                       </Col>)}
                 </div>)
                 } 
               } />
-              
-            {/* <Route path='/movies/:movieId/genre' render={({match}) => <GenreView movie={movies.find(m => m._id === match.params.movieId)}/>}/> */}
 
             <Route path='/user' render={() => <ProfileView username={this.state.user}/>} />
 
             <Route path='/register' render={() => <RegistrationView />} />
 
-            {/* <Route exact path='/movies' render={() => {
-              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-              return movies.map(m => 
-              <Col xs={12} sm={6} md={4} lg= {4}>
-              <MovieCard key={m._id} movie={m}/>
-              </Col>)
-                } 
-              } /> */}
-            
-
+            <Route path='/user/update'  render={() => <UpdateProfile />} />
 
             <Route path='/movies/:movieId' render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
