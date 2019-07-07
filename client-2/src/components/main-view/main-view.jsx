@@ -155,9 +155,9 @@ render() {
 
             <Route path='/register' render={() => <RegistrationView />} />
 
-            <Route path='/user/update'  render={() => <UpdateProfile />} />
+            <Route path='/user/update' render={() => <UpdateProfile />} />
 
-            <Route path='/movies/:movieId' render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+            <Route path='/movies/:movieId' render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
             </Row>
         </Container>

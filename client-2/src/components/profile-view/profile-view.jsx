@@ -22,12 +22,12 @@ export class ProfileView extends React.Component {
     }
 
     componentDidMount() {
-      let accessToken = localStorage.getItem('token');
+      const accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
     }
 
     getUser(token) {
-        let username = this.props.username;
+        const username = this.props.username;
         axios.get(`https://healthypotatoes.herokuapp.com/users/${username}`, {
           headers: { Authorization: `Bearer ${token}`}
         })
@@ -46,6 +46,43 @@ export class ProfileView extends React.Component {
         });
       }
 
+      deleteUser(e) {
+        e.preventDefault();
+        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        .then(response => {
+          alert('Account deleted');
+
+          localStorage.removeItem('token, user');
+          window.open('/');
+        })
+        .catch(event => {
+          alert('failed to delete user');
+        });
+      }
+
+      // const handleSubmit = (e) => {
+      //   e.preventDefault();
+      //   // send a request to the server for authentication
+      //   axios.put(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
+      //     username: this.state.username, 
+      //     password: this.state.password, 
+      //     birthday: this.state.birthday, 
+      //     email: this.state.email,
+      //  },{
+      //      headers: {Authorization: `Bearer${localStorage.getItem('token')}`}
+      //   })
+      //   .then(res => {
+      //     const data = res.data;
+      //     console.log(data);
+      //     alert('changed info');
+      //     window.open('/');
+      //   })
+      //   .catch(e => {
+      //     alert('error updating user');
+      //   });
+      // };
 
     render() {
         return (
@@ -67,6 +104,7 @@ export class ProfileView extends React.Component {
                       </Link>
                       </Card.Body>
                   </Card>   
+                  
                 </Col>
               </Container>
             </div>
