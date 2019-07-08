@@ -137,13 +137,32 @@ render() {
                     <Link to={`/user`}> 
                       <Button>Profile</Button>
                     </Link>
-                    {movies.map(m => 
-                      <Col xs={12} sm={6} md={4} lg= {4}>
+                    <Col xs={12} sm={6} md={4} lg= {4}>
+                    {movies.map(m => ( 
                       <MovieCard key={m._id} movie={m}/>
-                      </Col>)}
-                </div>)
-                } 
-              } />
+                    ))}
+                    </Col>
+                </div>
+                ); 
+            }} /> 
+  } 
+
+
+                  {/* <div>
+                    <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
+                    <Link to={`/user`}> 
+                      <Button>Profile</Button>
+                    </Link>
+                    <Col xs={12} sm={6} md={4} lg= {4}>
+                    {movies.map(m => (
+                      
+                      <MovieCard key={m._id} movie={m} />
+                    ))}
+                    </Col>
+                  </div>
+                )} 
+                /> */}
+
 
             <Route path='/user' render={() => <ProfileView username={this.state.user}/>} />
 
