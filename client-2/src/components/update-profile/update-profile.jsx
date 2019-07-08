@@ -24,7 +24,7 @@ export function UpdateProfile (props) {
       birthday: birthday, 
       email: email,
    }, {
-       headers: { Authorization: `Bearer${localStorage.getItem('token')}` }
+       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(res => {
       const data = res.data;

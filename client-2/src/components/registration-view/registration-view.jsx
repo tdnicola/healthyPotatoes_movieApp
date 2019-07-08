@@ -35,8 +35,8 @@ export function RegistrationView(props) {
       window.open('/')
     })
     .catch(e => {
-      console.log('error registering user')
-    })
+      console.log('error registering user');
+    });
   };
 
   return (

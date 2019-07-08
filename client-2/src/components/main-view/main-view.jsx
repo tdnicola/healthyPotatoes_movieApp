@@ -114,12 +114,6 @@ render() {
   //before the data is initially loaded
   const { movies, selectedMovie, user, register } = this.state;
 
-  // if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-
-  // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-  // if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-  
-
 //before the movies has been loaded
   if (!movies) return <div className="main-view" />;
 

@@ -29,7 +29,7 @@ export class ProfileView extends React.Component {
     getUser(token) {
         const username = this.props.username;
         axios.get(`https://healthypotatoes.herokuapp.com/users/${username}`, {
-          headers: { Authorization: `Bearer ${token}`}
+          headers: { Authorization: `Bearer ${token}` } 
         })
         .then(res => {
           this.setState({
@@ -49,12 +49,12 @@ export class ProfileView extends React.Component {
       deleteUser(e) {
         e.preventDefault();
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         .then(response => {
           alert('Account deleted');
 
-          localStorage.removeItem('token, user');
+          localStorage.removeItem('token', 'user');
           window.open('/');
         })
         .catch(event => {
