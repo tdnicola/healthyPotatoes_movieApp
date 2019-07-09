@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-export function UpdateProfile (props) {
+export function UpdateProfile(props) {
   const [username, updateUsername] = useState('');
   const [password, updatePassword] = useState('');
   const [email, updateEmail] = useState('');
@@ -19,10 +19,10 @@ export function UpdateProfile (props) {
     e.preventDefault();
     // send a request to the server for authentication
     axios.put(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
-      username: username, 
-      password: password, 
-      birthday: birthday, 
-      email: email,
+      username: this.username, 
+      password: this.password, 
+      birthday: this.birthday, 
+      email: this.email,
    }, {
        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
@@ -33,6 +33,7 @@ export function UpdateProfile (props) {
       window.open('/');
     })
     .catch(e => {
+      console.log(password);
       alert('error updating user');
     });
   };
@@ -58,9 +59,6 @@ export function UpdateProfile (props) {
         <Form.Group controlId='formBasicDob'>
         <Form.Label>Date of Birth</Form.Label>
           <Form.Control type="date" placeholder="01/01/1985" value={birthday} onChange={e => updateDob(e.target.value)} />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicChecbox">
         </Form.Group>
         <Button variant="primary" type="submit" onClick={handleSubmit}>
           Update me
