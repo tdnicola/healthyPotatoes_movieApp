@@ -19,10 +19,10 @@ export function UpdateProfile(props) {
     e.preventDefault();
     // send a request to the server for authentication
     axios.put(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
-      username: this.username, 
-      password: this.password, 
-      birthday: this.birthday, 
-      email: this.email,
+      username: username, 
+      password: password, 
+      birthday: birthday, 
+      email: email,
    }, {
        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
