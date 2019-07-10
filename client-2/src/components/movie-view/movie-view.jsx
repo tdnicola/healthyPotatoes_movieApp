@@ -2,10 +2,11 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import React from 'react';
-import './movie-view.scss';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import './movie-view.scss';
+
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -29,13 +30,14 @@ export class MovieView extends React.Component {
                       <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
                       <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
                       <Link to={`/`}>
-                        <Button variant='primary'> Go back</Button>
+                        <Button variant='primary'>Go back</Button>
                       </Link>
+                      <Button className='favoriteButton' variant='primary'>Add to Favorites</Button>
                     </Card.Body>
                 </Card>   
            </Row>
         </Container>
-    </div>
+      </div>
     );
   }
 }

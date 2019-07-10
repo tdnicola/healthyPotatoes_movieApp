@@ -101,7 +101,6 @@ export class MainView extends React.Component {
     });
   }
 
-
   alreadyMember() {
     this.setState({
       register: false
@@ -133,10 +132,12 @@ render() {
         
                 return (
                   <div>
+                    <div className='userInfo'>
                       <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
                       <Link to={`/user`}> 
                           <Button>Profile</Button>
                       </Link>
+                    </div>
                       <Container>
                          <Row>
                            {movies.map(m => ( 
@@ -168,13 +169,13 @@ render() {
                 /> */}
 
 
-            <Route path='/user' render={() => <ProfileView username={this.state.user}/>} />
+            <Route path='/user' render={() => <ProfileView username={this.state.user} />} />
 
             <Route path='/register' render={() => <RegistrationView />} />
 
             <Route path='/user/update' render={() => <UpdateProfile />} />
 
-            <Route path='/movies/:movieId' render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+            <Route path='/movies/:movieId' render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
 
             {/* </Row>
         </Container> */}
