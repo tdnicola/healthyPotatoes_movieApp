@@ -53,7 +53,6 @@ export class ProfileView extends React.Component {
         })
         .then(response => {
           alert('Account deleted');
-
           localStorage.removeItem('token', 'user');
           window.open('/');
         })

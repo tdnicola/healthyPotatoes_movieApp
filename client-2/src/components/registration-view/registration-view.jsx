@@ -32,7 +32,8 @@ export function RegistrationView(props) {
     .then(res => {
       const data = res.data;
       console.log(data);
-      window.open('/')
+      alert('registration successful, please log in.');
+      window.open('/');
     })
     .catch(e => {
       console.log('error registering user');

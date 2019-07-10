@@ -66,5 +66,3 @@ export function LoginView(props) {
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
 };
-
-//      <Form.Text>New User? Click <Button id='registerButton' onClick={() => this.register()}> Meh! </Button>

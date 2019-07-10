@@ -122,8 +122,8 @@ render() {
       <div className="main-view">
      
 
-        <Container>
-          <Row>
+        {/* <Container>
+          <Row> */}
 
             <Route exact path='/' render={() => {
 
@@ -133,20 +133,24 @@ render() {
         
                 return (
                   <div>
-                    <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
-                    <Link to={`/user`}> 
-                      <Button>Profile</Button>
-                    </Link>
-                    <Col xs={12} sm={6} md={4} lg= {4}>
-                    {movies.map(m => ( 
-                      <MovieCard key={m._id} movie={m}/>
-                    ))}
-                    </Col>
+                      <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
+                      <Link to={`/user`}> 
+                          <Button>Profile</Button>
+                      </Link>
+                        <Container>
+                          <Row>
+                          {movies.map(m => ( 
+                          <Col xs={12} sm={6} md={4} lg= {4}>
+                            <MovieCard key={m._id} movie={m}/>
+                          </Col>
+                          ))}
+                      </Row>
+                  </Container>
                 </div>
                 ); 
-            }} /> 
-  } 
-
+            }
+          } /> 
+  
 
                   {/* <div>
                     <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
@@ -172,8 +176,8 @@ render() {
 
             <Route path='/movies/:movieId' render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
 
-            </Row>
-        </Container>
+            {/* </Row>
+        </Container> */}
       </div>
     </Router>
     );
