@@ -32,8 +32,8 @@ export class ProfileView extends React.Component {
           headers: { Authorization: `Bearer ${token}` } 
         })
         .then(res => {
+          console.log(res.data)
           this.setState({
-            userdata: res.data,
             username: res.data.username,
             password: res.data.password,
             email: res.data.email,
@@ -47,7 +47,7 @@ export class ProfileView extends React.Component {
       }
 
       deleteUser(e) {
-        e.preventDefault();
+      
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
@@ -102,6 +102,7 @@ export class ProfileView extends React.Component {
                       <Link to={'/user/update'}>
                           <Button variant='primary'> Update ALL your profile.</Button>
                       </Link>
+                      <Button onClick={() => this.deleteUser()}>Delete account</Button>
                       </Card.Body>
                   </Card>   
                   

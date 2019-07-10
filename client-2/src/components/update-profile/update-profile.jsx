@@ -4,10 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import './update-profile.scss';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import './update-profile.scss';
 
 export function UpdateProfile(props) {
   const [username, updateUsername] = useState('');
@@ -17,6 +16,7 @@ export function UpdateProfile(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log();
     // send a request to the server for authentication
     axios.put(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
       username: username, 
@@ -33,7 +33,7 @@ export function UpdateProfile(props) {
       window.open('/');
     })
     .catch(e => {
-      console.log(password);
+      console.log(username);
       alert('error updating user');
     });
   };
