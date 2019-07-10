@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card';
 import React from 'react';
 import './movie-view.scss';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 export class MovieView extends React.Component {
   constructor() {
     super();
@@ -16,7 +18,9 @@ export class MovieView extends React.Component {
 
     return (
       <div>
-                <Card style={{ width: '75%' }}>
+        <Container>
+          <Row>
+                <Card>
                   <Card.Img variant="top" src={movie.imagepath} />
                     <Card.Body>
                       <Card.Title>{movie.title}</Card.Title>
@@ -28,8 +32,9 @@ export class MovieView extends React.Component {
                         <Button variant='primary'> Go back</Button>
                       </Link>
                     </Card.Body>
-                  </Card>   
-                  
+                </Card>   
+           </Row>
+        </Container>
     </div>
     );
   }

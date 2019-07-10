@@ -137,15 +137,15 @@ render() {
                       <Link to={`/user`}> 
                           <Button>Profile</Button>
                       </Link>
-                        <Container>
-                          <Row>
-                          {movies.map(m => ( 
-                          <Col xs={12} sm={6} md={4} lg= {4}>
+                      <Container>
+                         <Row>
+                           {movies.map(m => ( 
+                           <Col xs={12} sm={6} md={4} lg= {4}>
                             <MovieCard key={m._id} movie={m}/>
                           </Col>
                           ))}
-                      </Row>
-                  </Container>
+                         </Row>
+                      </Container>
                 </div>
                 ); 
             }
