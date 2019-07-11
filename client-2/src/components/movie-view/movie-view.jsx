@@ -5,14 +5,50 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import axios from 'axios';
 import './movie-view.scss';
 
 export class MovieView extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+    };
   }
 
+  addFavoriteMovie(e) {
+    e.preventDefault();
+    console.log();
+    // send a request to the server for authentication
+    axios.post(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+      username: localStorage.getItem('user')
+   }, {
+       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+    .then(res => {
+      console.log(res.movie._id);
+      alert('added movie to favorites');
+    })
+    .catch(e => {
+      alert('error updating movies');
+    });
+  }
+
+   // removie movie from list
+   removeMovie(event, favoriteMovie) {
+    event.preventDefault();
+    console.log(favoriteMovie);
+    axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/movies/${favoriteMovie}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+    .then(res => {
+      
+      alert('Movie Deleted');
+    })
+    .catch(event => {
+      alert('Oops... something went wrong...');
+    });
+  }
+  
   render() {
     const { movie, onClick } = this.props;
     if (!movie) return null;
@@ -32,7 +68,7 @@ export class MovieView extends React.Component {
                       <Link to={`/`}>
                         <Button variant='primary'>Go back</Button>
                       </Link>
-                      <Button className='favoriteButton' variant='primary'>Add to Favorites</Button>
+                      <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
                     </Card.Body>
                 </Card>   
            </Row>
