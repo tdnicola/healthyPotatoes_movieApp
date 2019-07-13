@@ -46,9 +46,25 @@ export class ProfileView extends React.Component {
           console.log(err);
         });
       }
+      
+   deleteFavoriteMovie(e) {
+      e.preventDefault();
+        // send a request to the server for authentication
+        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+          username: localStorage.getItem('user')
+       }, {
+           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+        .then(res => {
+          alert('removed movie from favorites');
+        })
+        .catch(e => {
+          alert('error removing movie');
+        });
+      }
+
 
       deleteUser(e) {
-      
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
@@ -66,7 +82,6 @@ export class ProfileView extends React.Component {
       const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
     
       return (
-        
         <div>
               <Container>
                 <Col>
@@ -77,11 +92,13 @@ export class ProfileView extends React.Component {
                       <Card.Text>birthday {this.state.birthday}</Card.Text>
                       <Card.Text>{ favoriteMovieList.map(m => (
                         <Link key={m._id} to={`/movies/${m._id}`}>
-                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
+                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button>
+                        <Button onClick={e => this.deleteFavoriteMovie(e)}>Remove</Button>
+                        </div>
                         </Link>
                       ))
                       }
-                    </Card.Text>
+                      </Card.Text>
 
                       <Link to={`/`}>
                           <Button variant='primary'> Go back</Button>
@@ -99,11 +116,3 @@ export class ProfileView extends React.Component {
         );
     }
 }
-
-// {
-//   this.state.favoriteMovies.map(m => (
-//     <Link key={m._id} to={`/movies/${m._id}`}>
-//     <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
-//     </Link>
-//   ))
-// }

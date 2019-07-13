@@ -25,27 +25,10 @@ export class MovieView extends React.Component {
        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(res => {
-      console.log(res.movie._id);
       alert('added movie to favorites');
     })
     .catch(e => {
       alert('error updating movies');
-    });
-  }
-
-   // removie movie from list
-   removeMovie(event, favoriteMovie) {
-    event.preventDefault();
-    console.log(favoriteMovie);
-    axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/movies/${favoriteMovie}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    })
-    .then(res => {
-      
-      alert('Movie Deleted');
-    })
-    .catch(event => {
-      alert('Oops... something went wrong...');
     });
   }
   
