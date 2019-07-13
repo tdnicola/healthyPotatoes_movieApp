@@ -64,6 +64,8 @@ export class MainView extends React.Component {
       this.setState({
         movies: res.data
       });
+      localStorage.setItem('movies', JSON.stringify(this.state.movies));
+      console.log(res.data);
     })
     .catch((err) => {
       console.log(err);
@@ -149,27 +151,10 @@ render() {
                       </Container>
                 </div>
                 ); 
-            }
-          } /> 
-  
+            }} 
+            /> 
 
-                  {/* <div>
-                    <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
-                    <Link to={`/user`}> 
-                      <Button>Profile</Button>
-                    </Link>
-                    <Col xs={12} sm={6} md={4} lg= {4}>
-                    {movies.map(m => (
-                      
-                      <MovieCard key={m._id} movie={m} />
-                    ))}
-                    </Col>
-                  </div>
-                )} 
-                /> */}
-
-
-            <Route path='/user' render={() => <ProfileView username={this.state.user} />} />
+            <Route path='/user' render={() => <ProfileView username={this.state.user} movies={movies} />} />
 
             <Route path='/register' render={() => <RegistrationView />} />
 

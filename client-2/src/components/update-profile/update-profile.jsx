@@ -38,33 +38,33 @@ export function UpdateProfile(props) {
     });
   };
 
-  return (
-    <Container className='registrationContainer'>
-      <Form className='registrationForm'>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => updateEmail(e.target.value)} />
-  
-        </Form.Group>
-
-        <Form.Group controlId='formBasicUsername'>
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Username" value={username} onChange={e => updateUsername(e.target.value)} />
+    return (
+      <Container className='registrationContainer'>
+        <Form className='registrationForm'>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => updateEmail(e.target.value)} />
+    
           </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => updatePassword(e.target.value)} />
-        </Form.Group>
 
-        <Form.Group controlId='formBasicDob'>
-        <Form.Label>Date of Birth</Form.Label>
-          <Form.Control type="date" placeholder="01/01/1985" value={birthday} onChange={e => updateDob(e.target.value)} />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Update me
-        </Button>
+          <Form.Group controlId='formBasicUsername'>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="Username" value={username} onChange={e => updateUsername(e.target.value)} />
+            </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => updatePassword(e.target.value)} />
+          </Form.Group>
 
-      </Form>
-    </Container>
-  );
+          <Form.Group controlId='formBasicDob'>
+          <Form.Label>Date of Birth</Form.Label>
+            <Form.Control type="date" placeholder="01/01/1985" value={birthday} onChange={e => updateDob(e.target.value)} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
+            Update me
+          </Button>
+
+        </Form>
+      </Container>
+    );
 }

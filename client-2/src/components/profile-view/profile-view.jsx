@@ -18,7 +18,9 @@ export class ProfileView extends React.Component {
             email: null,
             birthday: null,
             favoriteMovies: [],
-        }
+            movies: [],
+            favorite: []
+        };
     }
 
     componentDidMount() {
@@ -32,13 +34,12 @@ export class ProfileView extends React.Component {
           headers: { Authorization: `Bearer ${token}` } 
         })
         .then(res => {
-          console.log(res.data)
           this.setState({
             username: res.data.username,
             password: res.data.password,
             email: res.data.email,
             birthday: res.data.birthday,
-            favoriteMovies: res.data.favoriteMovies
+            favoriteMovies: res.data.favoriteMovies,
           });
         })
         .catch((err) => {
@@ -61,31 +62,12 @@ export class ProfileView extends React.Component {
         });
       }
 
-      // const handleSubmit = (e) => {
-      //   e.preventDefault();
-      //   // send a request to the server for authentication
-      //   axios.put(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
-      //     username: this.state.username, 
-      //     password: this.state.password, 
-      //     birthday: this.state.birthday, 
-      //     email: this.state.email,
-      //  },{
-      //      headers: {Authorization: `Bearer${localStorage.getItem('token')}`}
-      //   })
-      //   .then(res => {
-      //     const data = res.data;
-      //     console.log(data);
-      //     alert('changed info');
-      //     window.open('/');
-      //   })
-      //   .catch(e => {
-      //     alert('error updating user');
-      //   });
-      // };
-
     render() {
-        return (
-            <div>
+      const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
+    
+      return (
+        
+        <div>
               <Container>
                 <Col>
                   <Card>
@@ -93,7 +75,13 @@ export class ProfileView extends React.Component {
                       <Card.Title>{this.state.username}</Card.Title>
                       <Card.Text>email: {this.state.email}</Card.Text>
                       <Card.Text>birthday {this.state.birthday}</Card.Text>
-                      <Card.Text>favorite movies: {this.state.favoriteMovies}</Card.Text>
+                      <Card.Text>{ favoriteMovieList.map(m => (
+                        <Link key={m._id} to={`/movies/${m._id}`}>
+                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
+                        </Link>
+                      ))
+                      }
+                    </Card.Text>
 
                       <Link to={`/`}>
                           <Button variant='primary'> Go back</Button>
@@ -111,3 +99,11 @@ export class ProfileView extends React.Component {
         );
     }
 }
+
+// {
+//   this.state.favoriteMovies.map(m => (
+//     <Link key={m._id} to={`/movies/${m._id}`}>
+//     <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
+//     </Link>
+//   ))
+// }
