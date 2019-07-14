@@ -50,7 +50,7 @@ export class ProfileView extends React.Component {
    deleteFavoriteMovie(e) {
       e.preventDefault();
         // send a request to the server for authentication
-        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.state.favoriteMovies}`, {
           username: localStorage.getItem('user')
        }, {
            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -63,6 +63,21 @@ export class ProfileView extends React.Component {
         });
       }
 
+
+      // deleteMovie(event, favoriteMovie) {
+      //   event.preventDefault();
+      //   console.log(favoriteMovie);
+      //   axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${favoriteMovie}`, {
+      //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+      //   })
+      //   .then(response => {
+      //     // update state with current movie data
+      //     this.getUser(localStorage.getItem('token'));
+      //   })
+      //   .catch(event => {
+      //     alert('error deleting movie');
+      //   });
+      // }
 
       deleteUser(e) {
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
@@ -93,7 +108,7 @@ export class ProfileView extends React.Component {
                       <Card.Text>{ favoriteMovieList.map(m => (
                         <Link key={m._id} to={`/movies/${m._id}`}>
                         <div className='fav-movies-link'><Button variant="link">{m.title}</Button>
-                        <Button onClick={e => this.deleteFavoriteMovie(e)}>Remove</Button>
+                        <Button onClick={e => this.deleteFavoriteMovie(e)}>{console.log(this.state.favoriteMovies)}Remove</Button>
                         </div>
                         </Link>
                       ))
