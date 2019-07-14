@@ -255,9 +255,9 @@ app.post('/users/:username/favoriteMovies/:movieId', passport.authenticate('jwt'
   });
 });
 
-//remove favorite movie- can't get to work hmmm..
+//remove favorite movie
 app.delete('/users/:username/favoriteMovies/:movieId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ username: req.params.username }, {
+  Users.update({ username: req.params.username }, {
     $pull: { favoriteMovies: req.params.movieId }
   },
 { new: true }, //updated document is returned
