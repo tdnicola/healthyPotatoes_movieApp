@@ -32,21 +32,19 @@ export class MovieView extends React.Component {
     });
   }
 
-  deleteFavoriteMovie(e) {
-    e.preventDefault();
-      // send a request to the server for authentication
-      axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
-        username: localStorage.getItem('user')
-     }, {
-         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      })
-      .then(res => {
-        alert('removed movie from favorites');
-      })
-      .catch(e => {
-        alert('error removing movie');
-      });
-    }
+  // added deleteMovie to user profile
+  // deleteFavoriteMovie(e) {
+  //   e.preventDefault();
+  //     axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+  //        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+  //     })
+  //     .then(res => {
+  //       alert('removed movie from favorites' + res);
+  //     })
+  //     .catch(e => {
+  //       alert('error removing movie');
+  //     });
+  //   }
   
   render() {
     const { movie, onClick } = this.props;
@@ -68,7 +66,7 @@ export class MovieView extends React.Component {
                         <Button variant='primary'>Go back</Button>
                       </Link>
                       <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
-                      <Button className='removefavoriteButton' variant='primary' onClick={e => this.deleteFavoriteMovie(e)}>remove from Favorites</Button>
+                      {/* <Button className='removefavoriteButton' variant='primary' onClick={e => this.deleteFavoriteMovie(e)}>{console.log(this.props.movie._id)}remove from Favorites</Button> */}
                     </Card.Body>
                 </Card>   
            </Row>

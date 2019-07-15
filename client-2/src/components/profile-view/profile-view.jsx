@@ -47,37 +47,19 @@ export class ProfileView extends React.Component {
         });
       }
       
-   deleteFavoriteMovie(e) {
-      e.preventDefault();
+   deleteFavoriteMovie(movieId) {
+      console.log(this.props.movies)
         // send a request to the server for authentication
-        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.state.favoriteMovies}`, {
-          username: localStorage.getItem('user')
-       }, {
+        axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${movieId}`, {
            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         .then(res => {
           alert('removed movie from favorites');
         })
         .catch(e => {
-          alert('error removing movie');
+          alert('error removing movie' + e);
         });
       }
-
-
-      // deleteMovie(event, favoriteMovie) {
-      //   event.preventDefault();
-      //   console.log(favoriteMovie);
-      //   axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${favoriteMovie}`, {
-      //     headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
-      //   })
-      //   .then(response => {
-      //     // update state with current movie data
-      //     this.getUser(localStorage.getItem('token'));
-      //   })
-      //   .catch(event => {
-      //     alert('error deleting movie');
-      //   });
-      // }
 
       deleteUser(e) {
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {
@@ -106,11 +88,12 @@ export class ProfileView extends React.Component {
                       <Card.Text>email: {this.state.email}</Card.Text>
                       <Card.Text>birthday {this.state.birthday}</Card.Text>
                       <Card.Text>{ favoriteMovieList.map(m => (
+                        <div className='fav-movies-button'>
                         <Link key={m._id} to={`/movies/${m._id}`}>
-                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button>
-                        <Button onClick={e => this.deleteFavoriteMovie(e)}>{console.log(this.state.favoriteMovies)}Remove</Button>
-                        </div>
+                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
                         </Link>
+                        <Button onClick={e => this.deleteFavoriteMovie(m._id)}>{console.log(m._id)}Remove</Button>
+                        </div>
                       ))
                       }
                       </Card.Text>
