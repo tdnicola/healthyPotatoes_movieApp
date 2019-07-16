@@ -1,10 +1,9 @@
-import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+
 import './director-view';
 
 export class DirectorView extends React.Component {
@@ -23,30 +22,11 @@ export class DirectorView extends React.Component {
     };
   } 
 
-  getdirector(token) {
-    console.log(this.props)
-    axios.get(`https://healthypotatoes.herokuapp.com/director/${this.props.director.name}`, {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(res => {
-      this.setState({
-        date: res.data,
-        name: res.data.name,
-        bio: res.data.bio,
-        birth: res.data.birth,
-        death: res.data.death,
-      });
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
   render() {
     const { director } = this.props;
 
     return (
+      <Container>
                 <Card>
                   <Card.Img variant="top"/>
                     <Card.Body>
@@ -62,12 +42,14 @@ export class DirectorView extends React.Component {
                       </Card.Text>
                       <Card.Text>
                         Year of death or alive: {director.death}
+                        {console.log(this)}
                       </Card.Text>
                       <Link to={`/`}>
                         <Button variant='primary'>Go back</Button>
                       </Link>                     
                     </Card.Body>
                 </Card> 
+      </Container>
     );
   }
 }

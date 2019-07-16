@@ -1,10 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import React from 'react';
-import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import React from 'react';
 import './genre-view';
+
+import { Link } from 'react-router-dom';
 
 export class GenreView extends React.Component {
   constructor() {
@@ -13,38 +13,28 @@ export class GenreView extends React.Component {
     };
   }
 
- 
   render() {
-    const { movie, onClick } = this.props;
+    const { genre } = this.props;
 
     return (
-      <div>
         <Container>
-          <Row>
                 <Card>
-                  <Card.Img variant="top" src={movie.imagepath} />
                     <Card.Body>
-                      <Card.Title>{movie.title}</Card.Title>
+                      <Card.Title>{console.log(genre.name)}</Card.Title>
                       <Card.Text>
-                        Genre: {movie.genre.name}
-                        <Button>More info</Button>
+                        Genre: {genre.name}
                       </Card.Text>
                       <Card.Text>
-                        Director: {movie.director.name}
-                        <Button>More info</Button>
+                        Genre info: {genre.description}
+                        {console.log(this)}
                       </Card.Text>
-                      <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
-                      <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
-                      <Link to={`/`}>
+                      <Link to={`/movies/${this.props.movie._id}`}>
                         <Button variant='primary'>Go back</Button>
                       </Link>
-                      <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
-                    
                     </Card.Body>
                 </Card>   
-           </Row>
         </Container>
-      </div>
     );
   }
 }
+// {`/movies/${this.movie._id}`}>

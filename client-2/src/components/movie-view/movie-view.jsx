@@ -1,11 +1,11 @@
 //imports
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import React from 'react';
-import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import React from 'react';
 import Row from 'react-bootstrap/Row';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './movie-view.scss';
 
 export class MovieView extends React.Component {
@@ -40,13 +40,13 @@ export class MovieView extends React.Component {
       <div>
         <Container>
           <Row>
-                <Card>
+                <Card style={{ width: '35rem' }} >
                   <Card.Img variant="top" src={movie.imagepath} />
                     <Card.Body>
                       <Card.Title>{movie.title}</Card.Title>
                       <Card.Text>
                         Genre: {movie.genre.name}
-                        <Link to={`/genre/${movie.title}/genre`}>
+                        <Link to={`/genres/${movie.title}/${movie.genre.name}`}>
                         <Button className='infoButton' size='sm'>More info</Button>
                         </Link>
                       </Card.Text>
@@ -62,7 +62,6 @@ export class MovieView extends React.Component {
                         <Button variant='primary'>Go back</Button>
                       </Link>
                       <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
-                      {/* <Button className='removefavoriteButton' variant='primary' onClick={e => this.deleteFavoriteMovie(e)}>{console.log(this.props.movie._id)}remove from Favorites</Button> */}
                     </Card.Body>
                 </Card>   
            </Row>

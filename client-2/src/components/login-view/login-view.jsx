@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
-import './login-view.scss';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './login-view.scss';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');

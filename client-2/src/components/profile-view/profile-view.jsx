@@ -1,12 +1,11 @@
-import React from 'react';
-import './profile-view.scss';
-import { Link } from 'react-router-dom';
 import axios from 'axios'; 
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col'
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './profile-view.scss';
 
 export class ProfileView extends React.Component {
     constructor(props) {
@@ -90,9 +89,9 @@ export class ProfileView extends React.Component {
                       <Card.Text>{ favoriteMovieList.map(m => (
                         <div className='fav-movies-button'>
                         <Link key={m._id} to={`/movies/${m._id}`}>
-                        <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
+                        <Button variant="link">{m.title}</Button>
                         </Link>
-                        <Button onClick={e => this.deleteFavoriteMovie(m._id)}>{console.log(m._id)}Remove</Button>
+                        <Button size='sm' onClick={e => this.deleteFavoriteMovie(m._id)}>{console.log(m._id)}Remove Favorite</Button>
                         </div>
                       ))
                       }
