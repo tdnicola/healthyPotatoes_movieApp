@@ -47,7 +47,7 @@ export class ProfileView extends React.Component {
       }
       
    deleteFavoriteMovie(movieId) {
-      console.log(this.props.movies)
+      console.log(this.props.movies);
         // send a request to the server for authentication
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${movieId}`, {
            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -84,24 +84,23 @@ export class ProfileView extends React.Component {
                   <Card>
                       <Card.Body>
                       <Card.Title>{this.state.username}</Card.Title>
-                      <Card.Text>email: {this.state.email}</Card.Text>
-                      <Card.Text>birthday {this.state.birthday}</Card.Text>
-                      <Card.Text>{ favoriteMovieList.map(m => (
-                        <div className='fav-movies-button'>
-                        <Link key={m._id} to={`/movies/${m._id}`}>
+                      <Card.Text>Email: {this.state.email}</Card.Text>
+                      <Card.Text>Birthday {this.state.birthday}</Card.Text>
+                        Favorite Movies:
+                        { favoriteMovieList.map(m => (
+                        <div key={m._id} className='fav-movies-button'>
+                        <Link  to={`/movies/${m._id}`}>
                         <Button variant="link">{m.title}</Button>
                         </Link>
-                        <Button size='sm' onClick={e => this.deleteFavoriteMovie(m._id)}>{console.log(m._id)}Remove Favorite</Button>
+                        <Button size='sm' onClick={e => this.deleteFavoriteMovie(m._id)}>Remove Favorite</Button>
                         </div>
                       ))
                       }
-                      </Card.Text>
-
                       <Link to={`/`}>
-                          <Button variant='primary'> Go back</Button>
+                          <Button variant='primary'>Go back</Button>
                       </Link>
                       <Link to={'/user/update'}>
-                          <Button variant='primary'> Update ALL your profile.</Button>
+                          <Button variant='primary'>Update ALL your profile.</Button>
                       </Link>
                       <Button onClick={() => this.deleteUser()}>Delete account</Button>
                       </Card.Body>

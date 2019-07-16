@@ -140,8 +140,8 @@ render() {
                     <Container>
                         <Row>
                           {movies.map(m => ( 
-                            <Col xs={12} sm={6} md={4} lg= {4}>
-                             <MovieCard key={m._id} movie={m}/>
+                            <Col key={m._id} xs={12} sm={6} md={4} lg={4}>
+                            <MovieCard movie={m} />
                             </Col>
                           ))}
                         </Row>
