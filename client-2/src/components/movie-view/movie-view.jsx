@@ -31,20 +31,6 @@ export class MovieView extends React.Component {
       alert('error updating movies');
     });
   }
-
-  // added deleteMovie to user profile
-  // deleteFavoriteMovie(e) {
-  //   e.preventDefault();
-  //     axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
-  //        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-  //     })
-  //     .then(res => {
-  //       alert('removed movie from favorites' + res);
-  //     })
-  //     .catch(e => {
-  //       alert('error removing movie');
-  //     });
-  //   }
   
   render() {
     const { movie, onClick } = this.props;
@@ -58,8 +44,18 @@ export class MovieView extends React.Component {
                   <Card.Img variant="top" src={movie.imagepath} />
                     <Card.Body>
                       <Card.Title>{movie.title}</Card.Title>
-                      <Card.Text>Genre: {movie.genre.name}</Card.Text>
-                      <Card.Text>Director: {movie.director.name}</Card.Text>
+                      <Card.Text>
+                        Genre: {movie.genre.name}
+                        <Link to={`/genre/${movie.title}/genre`}>
+                        <Button className='infoButton' size='sm'>More info</Button>
+                        </Link>
+                      </Card.Text>
+                      <Card.Text>
+                        Director: {movie.director.name}
+                        <Link to={`/directors/${movie.director.name}`}>
+                        <Button className='infoButton' size='sm'>More info</Button>
+                        </Link>
+                      </Card.Text>
                       <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
                       <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
                       <Link to={`/`}>

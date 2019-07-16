@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 //importing moviecard/movieview info
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -121,15 +123,9 @@ render() {
   return (
     <Router>
       <div className="main-view">
-     
-
-        {/* <Container>
-          <Row> */}
 
             <Route exact path='/' render={() => {
-
               if (!user) return (
-      
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />);
         
                 return (
@@ -140,20 +136,27 @@ render() {
                           <Button>Profile</Button>
                       </Link>
                     </div>
-                      <Container>
-                         <Row>
-                           {movies.map(m => ( 
-                           <Col xs={12} sm={6} md={4} lg= {4}>
-                            <MovieCard key={m._id} movie={m}/>
-                          </Col>
+                    <Container>
+                        <Row>
+                          {movies.map(m => ( 
+                            <Col xs={12} sm={6} md={4} lg= {4}>
+                             <MovieCard key={m._id} movie={m}/>
+                            </Col>
                           ))}
-                         </Row>
-                      </Container>
-                </div>
+                        </Row>
+                  </Container>
+                  </div>
                 ); 
             }} 
             /> 
+            <Route path="/directors/:name" render={({ match }) => {
+              if (!movies || !movies.length) return <div className="main-view" />;
+              return <DirectorView director={movies.find(m => m.director.name === match.params.name).director} />; 
+            }}
+            />
 
+            <Route path='/movies/:title/genre' render={() => <GenreView username={this.state.user} movies={movies} />} />
+            
             <Route path='/user' render={() => <ProfileView username={this.state.user} movies={movies} />} />
 
             <Route path='/register' render={() => <RegistrationView />} />
@@ -162,8 +165,6 @@ render() {
 
             <Route path='/movies/:movieId' render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
 
-            {/* </Row>
-        </Container> */}
       </div>
     </Router>
     );
