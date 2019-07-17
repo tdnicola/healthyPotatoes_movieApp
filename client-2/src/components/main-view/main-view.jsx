@@ -153,7 +153,7 @@ render() {
             
             <Route path='/directors/:name' render={({ match }) => {
               if (!movies || !movies.length) return <div className="main-view" />;
-              return <DirectorView director={movies.find(m => m.director.name === match.params.name).director} movies={movies}/>; 
+              return <DirectorView director={movies.find(m => m.director.name === match.params.name).director} movies={movies} />; 
             }}
             />
 
