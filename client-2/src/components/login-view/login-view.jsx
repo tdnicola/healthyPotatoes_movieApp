@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './login-view.scss';
 
@@ -14,17 +15,17 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
     // send a request to the server for authentication
     axios.post('https://healthypotatoes.herokuapp.com/login', {
       username: username,
       password: password,
-    }).then(res => {
+    })
+    .then(res => {
       const data = res.data;
       props.onLoggedIn(data);
     })
     .catch(e => {
-      console.log('no such user')
+      alert('Incorrect info, please try again.')
     });
       // workaround for authentication
     // props.onLoggedIn(username);
@@ -44,7 +45,7 @@ export function LoginView(props) {
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => setPassword(e.target.value)} />
+          <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
         </Form.Group>
         <Button id='loginButton' onClick={handleSubmit}>
           Log in
@@ -52,13 +53,14 @@ export function LoginView(props) {
 
         <Form.Group controlId='newUser'>
           <Form.Text>New User? Click 
+            <Router>
           <Link to={`/register`}>
             <Button id='registerButton'>here</Button>
           </Link>
-          
+          </Router>
           </Form.Text>
         </Form.Group>
-    </form>
+      </form>
     </Container>
   );
 }

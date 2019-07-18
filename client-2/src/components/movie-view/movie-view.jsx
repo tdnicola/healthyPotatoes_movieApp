@@ -6,41 +6,43 @@ import Container from 'react-bootstrap/Container';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './movie-view.scss';
 
-export class MovieView extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
 
-  addFavoriteMovie(e) {
-    e.preventDefault();
-    console.log();
-    // send a request to the server for authentication
-    axios.post(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
-      username: localStorage.getItem('user')
-   }, {
-       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    })
-    .then(res => {
-      alert('added movie to favorites');
-    })
-    .catch(e => {
-      alert('error updating movies');
-    });
-  }
-  
-  render() {
-    const { movie, onClick } = this.props;
-    if (!movie) return null;
+function MovieView(props) {
+  const { movies, movieId } = props;
 
-    return (
-      <div>
-        <Container>
+  if (!movies || !movies.length) return null;
+
+  const movie = movies.find(m => m._id == movieId);
+
+
+  function addFavoriteMovie(e) {
+        e.preventDefault();
+        console.log();
+        // send a request to the server for authentication
+        axios.post(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+          username: localStorage.getItem('user')
+       }, {
+           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+        .then(res => {
+          alert('added movie to favorites');
+        })
+        .catch(e => {
+          alert('error updating movies');
+        });
+      }
+      
+  return (
+
+    <div>
+      <Container>
           <Row>
-                <Card style={{ width: '30rem' }} >
+
+          <Card style={{ width: '30rem' }} >
                   <Card.Img variant="top" src={movie.imagepath} />
                     <Card.Body>
                       <Card.Title>{movie.title}</Card.Title>
@@ -64,9 +66,14 @@ export class MovieView extends React.Component {
                       <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
                     </Card.Body>
                 </Card>   
-           </Row>
-        </Container>
-      </div>
-    );
-  }
+            </Row>
+            </Container>
+            </div>
+
+  );
 }
+
+export default connect(({movies}) => ({movies}))(MovieView);
+
+
+
