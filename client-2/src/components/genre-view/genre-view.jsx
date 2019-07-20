@@ -1,40 +1,39 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import './genre-view';
 
 import { Link } from 'react-router-dom';
 
-export class GenreView extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
 
-  render() {
-    const { genre } = this.props;
+function GenreView(props) {
+  const { movies, titleName } = props;
 
+  if (!movies || !movies.length) return null;
+
+  const movie = movies.find(movie => movie.title == titleName);
+  console.log(movie.genre)
     return (
+    
         <Container>
-                <Card>
-                    <Card.Body>
-                      <Card.Title>{console.log(genre.name)}</Card.Title>
-                      <Card.Text>
-                        Genre: {genre.name}
-                      </Card.Text>
-                      <Card.Text>
-                        Genre info: {genre.description}
-                        {console.log(this)}
-                      </Card.Text>
-                      <Link to={`/movies/${this.props.movie._id}`}>
-                        <Button variant='primary'>Go back</Button>
-                      </Link>
-                    </Card.Body>
-                </Card>   
+            <Card>
+                <Card.Body>
+                    <Card.Title>
+                      {movie.genre.name}
+                    </Card.Title>     
+                    <Card.Text>
+                      Genre info: {movie.genre.description}
+                    </Card.Text>
+                    <Link to={`/movies/${movie._id}`}>
+                      <Button variant='primary'>Go back</Button>
+                    </Link>
+                </Card.Body>
+            </Card>   
         </Container>
     );
   }
-}
-// {`/movies/${this.movie._id}`}>
+
+export default connect(({movies}) => ({movies}))(GenreView)
+

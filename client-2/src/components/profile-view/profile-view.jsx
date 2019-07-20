@@ -2,12 +2,13 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
 
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,7 +19,6 @@ export class ProfileView extends React.Component {
             birthday: null,
             favoriteMovies: [],
             movies: [],
-            favorite: []
         };
     }
 
@@ -28,7 +28,7 @@ export class ProfileView extends React.Component {
     }
 
     getUser(token) {
-        const username = this.props.username;
+        const username = localStorage.getItem('user');
         axios.get(`https://healthypotatoes.herokuapp.com/users/${username}`, {
           headers: { Authorization: `Bearer ${token}` } 
         })
@@ -75,8 +75,13 @@ export class ProfileView extends React.Component {
       }
 
     render() {
-      const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
+
+      const favoritemovie = this.state
+      const { movies, favoriteMovie } = this.props;
     
+      const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
+{console.log(favoriteMovieList)}
+ 
       return (
         <div>
               <Container>
@@ -112,3 +117,5 @@ export class ProfileView extends React.Component {
         );
     }
 }
+
+export default connect(({ movies, users }) => ({ movies, users }) )(ProfileView);

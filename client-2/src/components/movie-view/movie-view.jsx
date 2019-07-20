@@ -42,33 +42,33 @@ function MovieView(props) {
       <Container>
           <Row>
 
-          <Card style={{ width: '30rem' }} >
-                  <Card.Img variant="top" src={movie.imagepath} />
-                    <Card.Body>
-                      <Card.Title>{movie.title}</Card.Title>
-                      <Card.Text>
-                        Genre: {movie.genre.name}
-                        <Link to={`/genres/${movie.title}/${movie.genre.name}`}>
+            <Card style={{ width: '30rem' }} >
+                <Card.Img variant="top" src={movie.imagepath} />
+                <Card.Body>
+                   <Card.Title>{movie.title}</Card.Title>
+                   <Card.Text>
+                     Genre: {movie.genre.name}
+                     <Link to={`/genres/${movie.title}/${movie.genre.name}`}>
                         <Button className='infoButton' size='sm'>More info</Button>
-                        </Link>
-                      </Card.Text>
-                      <Card.Text>
-                        Director: {movie.director.name}
-                        <Link to={`/directors/${movie.director.name}`}>
+                     </Link>
+                   </Card.Text>
+                   <Card.Text>
+                      Director: {movie.director.name}
+                      <Link to={`/directors/${movie.director.name}`}>
                         <Button className='infoButton' size='sm'>More info</Button>
-                        </Link>
-                      </Card.Text>
-                      <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
-                      <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
-                      <Link to={`/`}>
-                        <Button variant='primary'>Go back</Button>
                       </Link>
-                      <Button className='favoriteButton' variant='primary' onClick={e => this.addFavoriteMovie(e)}>Add to Favorites</Button>
-                    </Card.Body>
-                </Card>   
-            </Row>
-            </Container>
-            </div>
+                    </Card.Text>
+                    <Card.Text>Director Bio: {movie.director.bio}</Card.Text>
+                    <Card.Text><a href={movie.trailer}>Watch Trailer</a></Card.Text>
+                       <Link to={`/`}>
+                         <Button variant='primary'>Go back</Button>
+                       </Link>
+                        <Button className='favoriteButton' variant='primary' onClick={e => movie.addFavoriteMovie(e)}>Add to Favorites</Button>
+                 </Card.Body>
+            </Card>   
+          </Row>
+      </Container>
+    </div>
 
   );
 }
