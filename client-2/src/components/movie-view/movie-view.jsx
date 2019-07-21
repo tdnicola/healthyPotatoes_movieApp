@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 
 import './movie-view.scss';
 
-
 function MovieView(props) {
   const { movies, movieId } = props;
 
@@ -18,12 +17,11 @@ function MovieView(props) {
 
   const movie = movies.find(m => m._id == movieId);
 
-
   function addFavoriteMovie(e) {
         e.preventDefault();
         console.log();
         // send a request to the server for authentication
-        axios.post(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${this.props.movie._id}`, {
+        axios.post(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}/favoriteMovies/${movie._id}`, {
           username: localStorage.getItem('user')
        }, {
            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -63,7 +61,7 @@ function MovieView(props) {
                        <Link to={`/`}>
                          <Button variant='primary'>Go back</Button>
                        </Link>
-                        <Button className='favoriteButton' variant='primary' onClick={e => movie.addFavoriteMovie(e)}>Add to Favorites</Button>
+                        <Button className='favoriteButton' variant='primary' onClick={e => addFavoriteMovie(e)}>Add to Favorites</Button>
                  </Card.Body>
             </Card>   
           </Row>

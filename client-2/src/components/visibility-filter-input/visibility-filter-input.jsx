@@ -7,14 +7,17 @@ import Form from 'react-bootstrap/Form';
 import { setFilter } from '../../actions/actions';
 
 function VisibilityFilterInput(props) {
-    return <Form.Control
+    return (
+    <Form.Control
+    className='filter'
     onChange={e => props.setFilter(e.target.value)}
-    value={props.VisibilityFilter}
-    placeholder='filter'
-    />;
+    value={props.visibilityFilter}
+    placeholder='Search'
+    />
+    )
 }
 
 export default connect(
-    ({VisibilityFilter}) => ({VisibilityFilter}),
+    ({visibilityFilter}) => ({visibilityFilter}),
     { setFilter }
 )(VisibilityFilterInput);

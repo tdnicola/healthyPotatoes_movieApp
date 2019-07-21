@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input'
@@ -17,7 +19,7 @@ const mapStateToProps = state => {
     });
 
     if (visibilityFilter !== '') {
-        moviesToShow = moviesToShow.filter(m => m.title.includes(visibilityFilter));
+        moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter.toLowerCase()));
     }
     return { movies: moviesToShow };
 };
@@ -27,19 +29,34 @@ function MoviesList(props){
 
     if (!movies) return <div className='main-view' />
 
-    return <div classname='movies-list'>
-        <VisibilityFilterInput />
+    //button to logout and clear token/username
+    function buttonLogout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.reload();
+        // window.location.reload();
+    }
+    return (
+        <div className='movies-list'>
+            <VisibilityFilterInput />
         <Container>
             <Row>
-        {movies.map(m => (
-        <Col key={m._id} xs={12} sm={6} md={4} lg={4}>
-            <MovieCard key={m._id} movie={m} />
-        </Col>
-        )
-        )}
-                </Row>
+                <div className='userInfo'>
+                    <Button className='logoutButton' onClick={() => buttonLogout()}>Log Out</Button>
+                    <Link to={`/user`}> 
+                    <Button>Profile</Button>
+                    </Link>
+                </div>
+                {movies.map(m => (
+                    <Col key={m._id} xs={12} sm={6} md={4} lg={4}>
+                        <MovieCard key={m._id} movie={m} />
+                    </Col>
+                ))
+                }
+            </Row>
         </Container>
-    </div>;
+    </div>
+    )
 }
 
 export default connect(mapStateToProps)(MoviesList);

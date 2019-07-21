@@ -79,22 +79,11 @@ class MainView extends React.Component {
     });
   }
 
-  //button to logout and clear token/username
-  buttonLogout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    this.setState({
-      user: false,
-      selctedMovie: null,
-    })
-    // window.location.reload();
-  }
-
-  onSignedIn(user) {
-    this.setState({
-      user: user,
-    });
-  }
+  // onSignedIn(user) {
+  //   this.setState({
+  //     user: user,
+  //   });
+  // }
 
 //RENDER//
 //RENDER//
@@ -108,20 +97,12 @@ class MainView extends React.Component {
 
           <Container>
             <Row>
-              <div className='userInfo'>
-                <Button className='logoutButton' onClick={() => this.buttonLogout()}>Log Out</Button>
-                  <Link to={`/user`}> 
-                <Button>Profile</Button>
-                  </Link>
-              </div>
-
+            
                 <Route exact path='/' render={() => {
                   if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
                   return <MoviesList />
                 }} 
                 />
-
-                {/* <Route path='/register' render={() => <RegistrationView />} /> */}
                 
                 <Route path='/movies/:id' render={({match}) => <MovieView movieId={match.params.id} />} />
 
@@ -129,7 +110,7 @@ class MainView extends React.Component {
 
                 <Route exact path="/directors/:name" render={({ match }) => <DirectorView directorName={match.params.name} />} />
 
-                <Route exact path="/register" render={() => <RegistrationView onSignedIn={user => this.onSignedIn(user)} />} />
+                <Route exact path="/register" render={() => <RegistrationView />} />
 
                 <Route exact path="/user" render={() => <ProfileView movies={movies} />} />
 
