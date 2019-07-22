@@ -1,13 +1,11 @@
 //imports
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
-import { Link } from 'react-router-dom';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 //importing moviecard/movieview info
-import { connect } from 'react-redux';
 import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
@@ -15,11 +13,11 @@ import  ProfileView  from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { UpdateProfile } from '../update-profile/update-profile';
 
-
+//redux
 import { setMovies, setLoggedInUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import MovieView from '../movie-view/movie-view';
-
+//css
 import './main-view.scss';
 
 class MainView extends React.Component {
@@ -41,6 +39,7 @@ class MainView extends React.Component {
     }
   }
 
+//storing user/toek in localstorage
   onLoggedIn(authData) {
     this.setState({
       user: authData.user.username
@@ -64,7 +63,7 @@ class MainView extends React.Component {
     });
   }
 
-
+  //getting information on user
   getUser(user, token) {
     let username = localStorage.getItem('user');
     axios.get(`https://healthypotatoes.herokuapp.com/user/${username}`, {
@@ -78,12 +77,6 @@ class MainView extends React.Component {
       console.log(error);
     });
   }
-
-  // onSignedIn(user) {
-  //   this.setState({
-  //     user: user,
-  //   });
-  // }
 
 //RENDER//
 //RENDER//

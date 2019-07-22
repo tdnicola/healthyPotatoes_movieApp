@@ -37,16 +37,17 @@ function MoviesList(props){
         // window.location.reload();
     }
     return (
-        <div className='movies-list'>
-            <VisibilityFilterInput />
+
         <Container>
-            <Row>
-                <div className='userInfo'>
+        <div className='userInfo'>
                     <Button className='logoutButton' onClick={() => buttonLogout()}>Log Out</Button>
                     <Link to={`/user`}> 
                     <Button>Profile</Button>
                     </Link>
+                    
+            <VisibilityFilterInput />
                 </div>
+            <Row>
                 {movies.map(m => (
                     <Col key={m._id} xs={12} sm={6} md={4} lg={4}>
                         <MovieCard key={m._id} movie={m} />
@@ -55,7 +56,7 @@ function MoviesList(props){
                 }
             </Row>
         </Container>
-    </div>
+  
     )
 }
 
