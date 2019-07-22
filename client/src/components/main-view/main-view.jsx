@@ -1,116 +1,120 @@
 //imports
 import axios from 'axios';
-import Col from 'react-bootstrap/Col';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import Row from 'react-bootstrap/Row';
-
 //importing moviecard/movieview info
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import DirectorView from '../director-view/director-view';
+import GenreView from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
+import  ProfileView  from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { UpdateProfile } from '../update-profile/update-profile';
+
+//redux
+import { setMovies, setLoggedInUser } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
+import MovieView from '../movie-view/movie-view';
+//css
 import './main-view.scss';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [],
-      selectedMovie: null,
-      user: null,
-      register: false
+      user: null
     };
   }
 
-  //one of the hooks available in React Component
-
   componentDidMount() {
-    axios.get('https://healthypotatoes.herokuapp.com/movies')
-    .then(res => {
-      console.log(res);
-      ///assign the result to a state
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
       this.setState({
-        movies: res.data
+        user: localStorage.getItem('user')
       });
+      this.getMovies(accessToken);
+      this.getUser(localStorage.getItem("user"), accessToken);
+    }
+  }
+
+//storing user/toek in localstorage
+  onLoggedIn(authData) {
+    this.setState({
+      user: authData.user.username
+    });
+    this.props.setLoggedInUser(authData.user);
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.username);
+    this.getMovies(authData.token);
+  }
+
+  //getting the movies after the user is logged in
+  getMovies(token) {
+    axios.get('https://healthypotatoes.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
     })
-    .catch((error) => {
+    .then(res => {
+      this.props.setMovies(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  //getting information on user
+  getUser(user, token) {
+    let username = localStorage.getItem('user');
+    axios.get(`https://healthypotatoes.herokuapp.com/user/${username}`, {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+    this.props.setUsers(response.data);
+    console.log(response.data)
+    })
+    .catch(error => {
       console.log(error);
     });
   }
 
-//clicking movie to get more info
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
+//RENDER//
+//RENDER//
+  render() {
 
-  onLoggedIn(user) {
-    this.setState({
-      user
-    });
-  }
+    const { movies, user, } = this.state;
 
-//button to return back
-  onButtonClick() {
-    this.setState({
-    selectedMovie: null
-  });
-  }
+    return (
+      <Router>
+        <div className="main-view">
 
-  //testing
-  onSignedIn(user) {
-    this.setState({
-      user: user,
-      register: false,
-    });
-  }
-  //testing
-  register() {
-    this.setState({
-      register: true
-    });
-  }
-
-  //testing
-  alreadyMember() {
-    this.setState({
-      register: false
-    })
-  }
-
-
-render() {
-  //if the state isn't initialized, this will throw on runtime
-  //before the data is initially loaded
-  const { movies, selectedMovie, user, register } = this.state;
-
-  if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-
-  if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
-  // if (!user && register === false) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
-  // if (register) return <RegistrationView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-
-//before the movies has been loaded
-  if (!movies) return <div className="main-view" />;
-  return (
-    <div className="main-view">
-      <Container>
-        <Row>
-          {selectedMovie
-          ? <MovieView movie={selectedMovie} onClick={() => this.onButtonClick()}/>
-          : movies.map(movie => (
+          <Container>
+            <Row>
             
-            <Col key={movie._id} xs={12} sm={6} md={4}>
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-            </Col>
-           ))
-          }
-        </Row>
-      </Container>
-    </div>
+                <Route exact path='/' render={() => {
+                  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                  return <MoviesList />
+                }} 
+                />
+                
+                <Route path='/movies/:id' render={({match}) => <MovieView movieId={match.params.id} />} />
+
+                <Route exact path="/genres/:title/:name" render={({ match }) => <GenreView titleName={match.params.title} />} />
+
+                <Route exact path="/directors/:name" render={({ match }) => <DirectorView directorName={match.params.name} />} />
+
+                <Route exact path="/register" render={() => <RegistrationView />} />
+
+                <Route exact path="/user" render={() => <ProfileView movies={movies} />} />
+
+                <Route path='/user/update' render={() => <UpdateProfile />} />
+
+            </Row>
+          </Container>
+         </div>
+      </Router>
     );
   }
 }
+
+export default connect(null, { setMovies, setLoggedInUser } ) (MainView); 

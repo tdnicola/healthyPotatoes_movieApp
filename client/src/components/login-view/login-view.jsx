@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './login-view.scss';
 
 export function LoginView(props) {
@@ -12,10 +15,20 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
     // send a request to the server for authentication
-    // workaround for authentication
-    props.onLoggedIn(username);
+    axios.post('https://healthypotatoes.herokuapp.com/login', {
+      username: username,
+      password: password,
+    })
+    .then(res => {
+      const data = res.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      alert('Incorrect info, please try again.')
+    });
+      // workaround for authentication
+    // props.onLoggedIn(username);
   };
 
   return (
@@ -23,8 +36,8 @@ export function LoginView(props) {
       <h1>Welcome to some HealthyPotatoes!</h1>
       <form>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" value={username} onChange={e => setUsername(e.target.value)} />
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="email" placeholder="Ilovemovies" value={username} onChange={e => setUsername(e.target.value)} />
           <Form.Text className="emailShare">
             We'll never share your email with anyone else.
           </Form.Text>
@@ -32,24 +45,26 @@ export function LoginView(props) {
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Passwordy" value={password} onChange={e => setPassword(e.target.value)} />
+          <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
         </Form.Group>
         <Button id='loginButton' onClick={handleSubmit}>
           Log in
         </Button>
 
         <Form.Group controlId='newUser'>
-          <Form.Text>New User? Click <Button id='registerButton' onClick={() => props.onClick()}> Meh! </Button>
+          <Form.Text>New User? Click 
+            <Router>
+          <Link to={`/register`}>
+            <Button id='registerButton'>here</Button>
+          </Link>
+          </Router>
           </Form.Text>
         </Form.Group>
-    </form>
+      </form>
     </Container>
   );
 }
 
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired
 };
-
-//      <Form.Text>New User? Click <Button id='registerButton' onClick={() => this.register()}> Meh! </Button>
