@@ -13,7 +13,7 @@ function DirectorView(props) {
 
   if (!movies || !movies.length) return null;
 
-  const director = movies.find(movie => movie.director.name == directorName).director;
+  const director = movies.find(movie => movie.director.name === directorName).director;
 
   return (
     <Container>

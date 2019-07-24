@@ -15,7 +15,7 @@ function MovieView(props) {
 
   if (!movies || !movies.length) return null;
 
-  const movie = movies.find(m => m._id == movieId);
+  const movie = movies.find(m => m._id === movieId);
 
   function addFavoriteMovie(e) {
         e.preventDefault();

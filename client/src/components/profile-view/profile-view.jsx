@@ -75,12 +75,8 @@ class ProfileView extends React.Component {
       }
 
     render() {
-
-      const favoritemovie = this.state
-      const { movies, favoriteMovie } = this.props;
     
       const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
-{console.log(favoriteMovieList)}
  
       return (
         <div>

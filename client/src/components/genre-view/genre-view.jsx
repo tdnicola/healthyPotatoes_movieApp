@@ -13,7 +13,7 @@ function GenreView(props) {
 
   if (!movies || !movies.length) return null;
 
-  const movie = movies.find(movie => movie.title == titleName);
+  const movie = movies.find(movie => movie.title === titleName);
   console.log(movie.genre)
     return (
     

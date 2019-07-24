@@ -8,7 +8,9 @@ const express = require('express'),
   require('./passport'),
   cors = require('cors'),
   validator = require('express-validator');
-  path = require('path');
+
+const path = require('path');
+
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -280,8 +282,18 @@ app.use((err, req, res, next) => {
   res.status(500).send('You broke something');
 });
 
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+
 // listening for requests
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, '0.0.0.0', () =>
-console.log('Your app is listening on port 3000')
+console.log('Your app is listening on port 5000')
 );

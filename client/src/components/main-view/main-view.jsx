@@ -28,9 +28,12 @@ class MainView extends React.Component {
     };
   }
 
-  componentDidMount() {
+   async componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
+      await this.onLoggedIn();
+      await this.getMovies();
+      await this.getUser();
       this.setState({
         user: localStorage.getItem('user')
       });
@@ -40,7 +43,7 @@ class MainView extends React.Component {
   }
 
 //storing user/toek in localstorage
-  onLoggedIn(authData) {
+  async onLoggedIn(authData) {
     this.setState({
       user: authData.user.username
     });
@@ -51,7 +54,7 @@ class MainView extends React.Component {
   }
 
   //getting the movies after the user is logged in
-  getMovies(token) {
+  async getMovies(token) {
     axios.get('https://healthypotatoes.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
     })
@@ -64,7 +67,7 @@ class MainView extends React.Component {
   }
 
   //getting information on user
-  getUser(user, token) {
+  async getUser(user, token) {
     let username = localStorage.getItem('user');
     axios.get(`https://healthypotatoes.herokuapp.com/user/${username}`, {
       headers: { Authorization: `Bearer ${token}`}
