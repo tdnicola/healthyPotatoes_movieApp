@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './login-view.scss';
 
@@ -53,11 +52,11 @@ export function LoginView(props) {
 
         <Form.Group controlId='newUser'>
           <Form.Text>New User? Click 
-            <Router>
+   
           <Link to={`/register`}>
-            <Button id='registerButton'>here</Button>
+            <Button size='sm' id='registerButton'>here</Button>
           </Link>
-          </Router>
+
           </Form.Text>
         </Form.Group>
       </form>

@@ -31,9 +31,9 @@ class MainView extends React.Component {
    async componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      await this.onLoggedIn();
-      await this.getMovies();
-      await this.getUser();
+      // await this.onLoggedIn();
+      // await this.getMovies();
+      // await this.getUser();
       this.setState({
         user: localStorage.getItem('user')
       });
