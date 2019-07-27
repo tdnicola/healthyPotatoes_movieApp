@@ -4,7 +4,7 @@ $font-stack: Oswald, sans-serif;
 
 
 body {
-    background: ('../../../public/background.jpg') no-repeat center center fixed;
+    background: url('../../../src/Images/background.jpg') no-repeat center center fixed;
     // background-size: cover;
     //  height: 100%;
       }
@@ -16,6 +16,10 @@ body {
     margin-top: 20px;
     }
 
-#loginButtonRegistration {
+// #loginButtonRegistration {
+//     float: right;
+// }
+
+.update-btn {
     float: right;
 }

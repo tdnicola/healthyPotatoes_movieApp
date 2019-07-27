@@ -3,7 +3,9 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+
 
 import './update-profile.scss';
 
@@ -59,9 +61,12 @@ export function UpdateProfile(props) {
           <Form.Label>Date of Birth</Form.Label>
             <Form.Control type="date" placeholder="01/01/1985" value={birthday} onChange={e => updateDob(e.target.value)} />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button className='update-btn' variant="primary" type="submit" onClick={handleSubmit}>
             Update me
           </Button>
+          <Link to={`/user`}>
+             <Button className='back-btn' variant='primary'>Go back</Button>
+           </Link>
 
         </Form>
       </Container>
