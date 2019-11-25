@@ -12,6 +12,12 @@ export function LoginView(props) {
   const [password, setPassword] = useState('');
   // const registration = useState('')
 
+  /**
+   * posting username/pw to /login
+   * @function handleSubmit
+   * @param {event}
+   */
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // send a request to the server for authentication

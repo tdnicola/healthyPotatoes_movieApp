@@ -3,10 +3,16 @@ import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
-import './genre-view';
+import './Genre-View';
 
 import { Link } from 'react-router-dom';
 
+/**
+ * Genre information of movie
+ * @function GenreView
+ * @param {*} props - movie.genre
+ * @returns {Container} - information about the genre
+ */
 
 function GenreView(props) {
   const { movies, titleName } = props;

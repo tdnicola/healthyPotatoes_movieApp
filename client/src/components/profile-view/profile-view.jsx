@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './profile-view.scss';
+import './Profile-View.scss';
 
 class ProfileView extends React.Component {
     constructor(props) {

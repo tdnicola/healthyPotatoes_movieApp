@@ -17,6 +17,13 @@ function MovieView(props) {
 
   const movie = movies.find(m => m._id === movieId);
 
+  /**
+   * add the current movie to your favorite list
+   * @function addFavoriteMovie
+   * @param {event} buttonClick
+   * @returns {alert} - movie added to favorites
+   */
+  
   function addFavoriteMovie(e) {
         e.preventDefault();
         console.log();

@@ -5,8 +5,14 @@ import Container from 'react-bootstrap/Container';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './director-view';
+import './Director-View';
 
+/**
+ * Director information view
+ * @function DirectorView
+ * @param {*} props - movie.director.name props
+ * @returns {DirectorView}
+ */
 
 function DirectorView(props) {
   const { movies, directorName } = props;
