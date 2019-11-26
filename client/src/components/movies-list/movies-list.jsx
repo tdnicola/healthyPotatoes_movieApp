@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input'
-import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from '../movie-card/Movie-Card';
 import Container from 'react-bootstrap/Container';
 
 const mapStateToProps = state => {
