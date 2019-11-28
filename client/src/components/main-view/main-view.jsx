@@ -45,7 +45,7 @@ class MainView extends React.Component {
   /**
    * if correct information is sent to post from login-view
    * @function onLoggedIn
-   * @param {*} authData - from login-view
+   * @param {object} authData - from login-view
    * @returns {state} 
    * @returns {localStorage}
    */
