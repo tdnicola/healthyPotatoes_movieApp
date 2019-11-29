@@ -29,7 +29,8 @@ class ProfileView extends React.Component {
 
     /**
      * gets user information for display and sets the state with it.
-     * @param {*} token 
+     * @param {number} token 
+     * @return {object} user information
      */
     getUser(token) {
         const username = localStorage.getItem('user');
@@ -52,7 +53,8 @@ class ProfileView extends React.Component {
       
       /**
        * removes favorite movie from list
-       * @param {*} movieId 
+       * @param {number} movieId
+       * @return {alert} removed id from favorite list
        */
    deleteFavoriteMovie(movieId) {
       console.log(this.props.movies);
@@ -70,7 +72,8 @@ class ProfileView extends React.Component {
 
       /**
        * deletes user and user information from database
-       * @param {*} event - logoutbutton
+       * @param {event} deleteAccount
+       * @return {alert} removed account
        */
       deleteUser(e) {
         axios.delete(`https://healthypotatoes.herokuapp.com/users/${localStorage.getItem('user')}`, {

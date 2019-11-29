@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 /**
  * Genre information of movie
  * @function GenreView
- * @param {*} props - movie.genre
+ * @param {string} props - movie.genre
  * @returns {Container} - information about the genre
  */
 

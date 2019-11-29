@@ -60,12 +60,12 @@ class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  /**
+  /**ß
    * once logged in submits a get request to get movie list
    * @async
    * @function getMovies
-   * @param {token} token 
-   * @returns {props}
+   * @param {number} token 
+   * @returns {array} movies
    */
 
   //getting the movies after the user is logged in
@@ -86,7 +86,7 @@ class MainView extends React.Component {
    * @function getUser
    * @param {string} user 
    * @param {string} token 
-   * @returns {props} - setUsers
+   * @returns {object} user information - 2setUsers
    */
 
   //getting information on user

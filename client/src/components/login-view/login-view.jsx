@@ -16,7 +16,7 @@ export function LoginView(props) {
    * posting username/pw to /login
    * @function handleSubmit
    * @param {event}
-   * @return {Array} User information
+   * @return {object} User information
    */
   
   const handleSubmit = (e) => {

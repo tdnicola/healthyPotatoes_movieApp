@@ -10,7 +10,7 @@ import './Director-View';
 /**
  * Director information view
  * @function DirectorView
- * @param {object} props - movie.director.name props
+ * @param {string} props - movie.director.name props
  * @returns {DirectorView}
  */
 
